@@ -1,0 +1,278 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  -ms-overflow-style: none;
+  /* IE 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+#bookList {
+  -ms-overflow-style: none;
+  /* IE 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  font-size: 16px;
+}
+#startPage {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 0, 0, 0.548);
+  display: flex;
+}
+#typeRecordingDevice {
+  width: 70vmin;
+  height: 70vmin;
+  background: black;
+  color: white;
+  margin: auto;
+}
+#heading {
+  width: 100%;
+  height: 20%;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+#choice {
+  width: 100%;
+  height: 80%;
+  background: rgba(0, 0, 255, 0.658);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#choice > * {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+#cloud,
+#local {
+  width: 20vmin;
+  height: 20vmin;
+  border: solid red 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#field {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: hsl(0, 0%, 15%);
+}
+#container {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  grid-template-rows: 0.2fr 1.8fr;
+}
+header {
+  color: white;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#account {
+  top: 1vmin;
+  right: 1vmin;
+  position: absolute;
+}
+#account input {
+  padding: 4px 8px 4px 8px;
+  font-size: 1em;
+}
+#bookList {
+  grid-row-start: 2;
+  grid-row-end: -1;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  width: 100%;
+  height: 100%;
+  background: hsla(278, 100%, 50%, 0.459);
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+#bookList input {
+  width: 50%;
+  height: 50%;
+}
+#newBook {
+  justify-content: center;
+  align-items: center;
+  width: 40vmin;
+  height: 50vmin;
+  display: flex;
+  flex-direction: column;
+}
+#information {
+  padding: 1vmin;
+  padding-left: 0.5vmin;
+  grid-row-start: 2;
+  grid-row-end: -1;
+  grid-column-start: 2;
+  grid-column-end: -1;
+  width: 100%;
+  height: 100%;
+  background: red;
+}
+.blockNewBook {
+  margin: auto;
+  display: none;
+  z-index: 2;
+  grid-row-start: 2;
+  grid-row-end: -2;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  width: 75vmin;
+  height: 75vmin;
+  background: hsl(0, 0%, 50%);
+  opacity: 0.5;
+}
+.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.blockNewBook label {
+  display: flex;
+}
+.blockNewBook h2 {
+  color: white;
+  width: auto;
+  height: 12%;
+}
+#buttons {
+  display: flex;
+  width: 100%;
+  height: 12%;
+}
+#buttons input {
+  width: 50%;
+  height: auto;
+}
+form {
+  width: 80%;
+  height: 76%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+form label {
+  display: flex;
+}
+form label {
+  width: 100%;
+  height: auto;
+}
+form label input {
+  width: 100%;
+  height: auto;
+}
+form label:nth-child(3),
+form label:nth-child(4) {
+  width: 60%;
+  height: auto;
+}
+form label:nth-child(3) .totalPages,
+form label:nth-child(4) .completedPages {
+  width: 90%;
+  height: auto;
+}
+#checkBox {
+  width: 10%;
+  height: auto;
+}
+.bookCard {
+  width: 40vmin;
+  height: 50vmin;
+  display: flex;
+  flex-direction: column;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.editRemove {
+  background: green;
+}
+.bookInfo {
+  background: blue;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.bookTitle {
+  background: orange;
+  margin: auto;
+}
+.bookAuthor {
+  background: #5eff00;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.edit {
+  background: brown;
+}
+.countingPages {
+  cursor: pointer;
+}
+.controlProgress {
+  background: rgba(0, 119, 128, 0.589);
+  display: flex;
+}
+.controlProgress * {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.incrementPages {
+  background: green;
+}
+.decrementPages {
+  background: red;
+}
+.completeButton {
+  background: hsl(240, 100%, 20%);
+}
+.progressDisplay {
+  display: flex;
+  background: gray;
+}
+.progressDisplay * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.displayCompletedPages {
+  border-right: solid white 0.5px;
+}
+.displayTotalPages {
+  border-left: solid white 0.5px;
+}

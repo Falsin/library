@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="normalize.css">
+</head>
+<body>
+  <div id="startPage">
+    <div id="typeRecordingDevice">
+      <div id="heading">Where to save your data?</div>
+      <div id="choice">
+        <div>
+          <div id="cloud">Cloud</div>
+          <div id="local">Local</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="field">
+    <div id="container">
+      <header>
+        <div id="account">
+          <div><input type="button" value="Sing in"></div>
+        </div>
+        <h1>Home Library</h1>
+      </header>
+      <div id="bookList">
+  
+        <div id="newBook">
+          <input id="newBook" type="button" value="Add new book">
+        </div>
+      </div>
+      <div id="information">
+      </div>
+    </div>
+  
+    <div class="blockNewBook">
+      <h2>Add new book</h2>
+      <form>
+        <label>
+          <input type="text" placeholder="Title" class="title">
+        </label>
+        <label>
+          <input type="text" placeholder="Author" class="author">
+        </label>
+        <label>
+          <input type="text" placeholder="Total pages" class="totalPages">
+        </label>
+        <label>
+          <input type="text" placeholder="Completed pages" class="completedPages">
+          <input type="checkbox" id="checkBox">
+        </label>
+      </form>
+      <div id="buttons">
+        <input type="button" value="Add" id="btnAdd">
+        <input type="button" value="Cancel" id="btnCancel">
+      </div>
+    </div>
+
+
+
+  </div>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
