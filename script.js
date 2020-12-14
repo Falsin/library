@@ -18,6 +18,9 @@ const tableValues = document.querySelectorAll('.value');
 const deleteLocalStorage = document.getElementById('deleteLocalStorage');
 const deleteDate = document.querySelector('.deleteDate');
 
+const btnNo = document.getElementById('no');
+const btnYes = document.getElementById('yes');
+
 btnLocal.addEventListener('mousedown', showLocalMode)
 
 myLibrary = [];
@@ -25,7 +28,7 @@ myLibrary = [];
 newBook.addEventListener('mousedown', popUp);
 
 btnAdd.addEventListener('mousedown', () => {
-  let isRead = setBookStatus();
+  let isRead = setBookStatus(totalPages.value, completedPages.value);
 
   addBookToLibrary(isRead);
   addBookToDisplay();
@@ -38,8 +41,8 @@ btnAdd.addEventListener('mousedown', () => {
   addTableValues();
 });
 
-function setBookStatus() {
-  return !(totalPages.value - completedPages.value);
+function setBookStatus(total, completed) {
+  return !(total - completed);
 }
 
 btnCancel.addEventListener('mousedown', () => {
@@ -50,8 +53,13 @@ checkBox.addEventListener('change', changeReadingStatus);
 
 deleteLocalStorage.addEventListener('mousedown', () => {
   deleteDate.classList.add('active');
-  console.log(deleteDate);
 })
+
+btnNo.addEventListener('mousedown', () => {
+  deleteDate.classList.remove('active');
+})
+
+btnYes.addEventListener('mousedown', removeLocalDate);
 
 function showLocalMode() {
   let storage = storageAvailable('localStorage');
@@ -145,6 +153,7 @@ function addInfoInCard(elem) {
 
 function setControlArea(elem) {
   let divControl = addElement('div', elem, 'editRemove', '100%', '20%');
+  let elemId = +elem.dataset.index;
 
   let edit = addElement('button', divControl, 'edit', '50%', '100%');
   edit.textContent = 'Edit';
@@ -154,6 +163,8 @@ function setControlArea(elem) {
   remove.addEventListener('mousedown', () => {
     removeCard(elem);
     addTableValues();
+    myLibrary.splice(elemId, 1);
+
   })
 }
 
@@ -180,11 +191,24 @@ function setCountingArea(elem) {
   completeButton.textContent = '✓';
   incrementPages.textContent = '+';
 
-  incrementPages.addEventListener('mousedown', () =>  incrementNumPages(elem));
+  incrementPages.addEventListener('mousedown', () =>  {
+    incrementNumPages(elem);
+    addTableValues();
+    saveChanges();
 
-  decrementPages.addEventListener('mousedown', () =>  decrementNumPages(elem));
+  });
 
-  completeButton.addEventListener('mousedown', () =>  toCompleteBook(elem))
+  decrementPages.addEventListener('mousedown', () =>  {
+    decrementNumPages(elem);
+    addTableValues();
+    saveChanges();
+  });
+
+  completeButton.addEventListener('mousedown', () =>  {
+    toCompleteBook(elem);
+    addTableValues();
+    saveChanges();
+  })
  
   let progressDisplay = addElement('div', countingPages, 'progressDisplay', '100%', '40%');
   let displayCompletedPages = addElement('div', progressDisplay, 'displayCompletedPages', '50%', '100%');
@@ -206,7 +230,7 @@ function removeCard(elem) {
   let elemId = +elem.dataset.index;
   elem.remove();
   myLibrary.splice(elemId, 1);
-
+  saveChanges();
   editElemId();
 }
 
@@ -222,14 +246,20 @@ function toCompleteBook(elem) {
   myLibrary[elemId].completedPages = myLibrary[elemId].totalPages;
   let string = `${myLibrary[elemId].completedPages}`;
   elem.querySelector('.displayCompletedPages').textContent = string;
+
+  let bookStatus = setBookStatus(myLibrary[elemId].totalPages, myLibrary[elemId].completedPages);
+  myLibrary[elemId].isRead = bookStatus;
 }
 
 function incrementNumPages(elem) {
   let elemId = +elem.dataset.index;
-  if(myLibrary[elemId].completedPages < myLibrary[elemId].totalPages) {
+  if(+myLibrary[elemId].completedPages < +myLibrary[elemId].totalPages) {
     myLibrary[elemId].completedPages = ++myLibrary[elemId].completedPages;
     let string = `${myLibrary[elemId].completedPages}`;
     elem.querySelector('.displayCompletedPages').textContent = string;
+
+    let bookStatus = setBookStatus(myLibrary[elemId].totalPages, myLibrary[elemId].completedPages);
+    myLibrary[elemId].isRead = bookStatus;
   }
 }
 
@@ -239,6 +269,9 @@ function decrementNumPages(elem) {
     myLibrary[elemId].completedPages = --myLibrary[elemId].completedPages;
     let string = `${myLibrary[elemId].completedPages}`;
     elem.querySelector('.displayCompletedPages').textContent = string;
+
+    let bookStatus = setBookStatus(myLibrary[elemId].totalPages, myLibrary[elemId].completedPages);
+    myLibrary[elemId].isRead = bookStatus;
   }
 }
 
@@ -255,7 +288,7 @@ function addTableValues() {
     } else if (tableKeys[i].textContent == 'Completed Books') {
       let count = 0;
       for(let j = 0; j < myLibrary.length; j++) {
-        if(myLibrary[j].isRead == 'true') {
+        if(String(myLibrary[j].isRead) == 'true') {
           count++;
         }
       } 
@@ -289,7 +322,20 @@ function storageAvailable(type) {
 	}
 }
 
+function removeLocalDate() {
+  localStorage.clear();
+  myLibrary = [];
+  let bookCards = document.querySelectorAll('.bookCard');
+  if(bookCards) {
+    for(let i = 0; i < bookCards.length; i++) {
+      bookCards[i].remove();
+    }
+  }
+  deleteDate.classList.remove('active');  
+}
+
 function saveChanges() {
+  localStorage.clear();
   for(let i = 0; i < myLibrary.length; i++) {
     localStorage.setItem(`${[i]}.title`, `${myLibrary[i].title}`)
     localStorage.setItem(`${[i]}.author`, `${myLibrary[i].title}`)
@@ -298,7 +344,3 @@ function saveChanges() {
     localStorage.setItem(`${[i]}.isRead`, `${myLibrary[i].isRead}`)
   }
 }
-
-/* function deleteStore() {
-  localStorage.clear();
-} */

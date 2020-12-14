@@ -38,7 +38,7 @@ body {
   margin: auto;
 }
 
-#heading {
+.heading {
   .size(100%, 20%);
   background: red;
   display: flex;
@@ -48,15 +48,15 @@ body {
   font-size: 1.5em;
 }
 
-#choice {
+.choice {
   .size(100%, 80%);
   background: rgba(0, 0, 255, 0.658);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 }
 
-#choice > * {
+.choice > * {
   .size(100%, auto);
   display: flex;
   justify-content: space-evenly;
@@ -329,6 +329,13 @@ form label:nth-child(4) .completedPages {
   position: absolute;
   .size(100%, 100%);
   background: blue;
+  opacity: 0.8;
+}
+
+.deleteDate > div {
+  opacity: 0.9;
+  .size(70vmin, 70vmin);
+  background: rgba(255, 0, 0, 0.76);
 }
 
 .active {
@@ -338,4 +345,13 @@ form label:nth-child(4) .completedPages {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#no, #yes {
+  .size(20vmin, 20vmin);
+  border: solid red 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
