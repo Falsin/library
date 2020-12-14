@@ -15,6 +15,8 @@ const checkBox = document.getElementById('checkBox');
 
 const tableKeys = document.querySelectorAll('.key');
 const tableValues = document.querySelectorAll('.value');
+const deleteLocalStorage = document.getElementById('deleteLocalStorage');
+const deleteDate = document.querySelector('.deleteDate');
 
 btnLocal.addEventListener('mousedown', showLocalMode)
 
@@ -45,6 +47,11 @@ btnCancel.addEventListener('mousedown', () => {
 });
 
 checkBox.addEventListener('change', changeReadingStatus);
+
+deleteLocalStorage.addEventListener('mousedown', () => {
+  deleteDate.classList.add('active');
+  console.log(deleteDate);
+})
 
 function showLocalMode() {
   let storage = storageAvailable('localStorage');
@@ -292,6 +299,6 @@ function saveChanges() {
   }
 }
 
-function deleteStore() {
+/* function deleteStore() {
   localStorage.clear();
-}
+} */
