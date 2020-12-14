@@ -143,6 +143,27 @@ header {
   grid-column-end: -1;
   .size(100%, 100%);
   background: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table {
+  border: solid black 1px;
+  .size(80%, auto);
+}
+
+table td {
+  border: solid green 1px;
+}
+
+table .key {
+  .size(70%, auto);
+}
+
+table .value {
+  .size(30%, auto);
+  text-align: right;
 }
 
 .blockNewBook {

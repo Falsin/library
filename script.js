@@ -13,6 +13,9 @@ const btnAdd = document.getElementById('btnAdd');
 const btnCancel = document.getElementById('btnCancel');
 const checkBox = document.getElementById('checkBox');
 
+const tableKeys = document.querySelectorAll('.key');
+const tableValues = document.querySelectorAll('.value');
+
 btnLocal.addEventListener('mousedown', showLocalMode)
 
 myLibrary = [];
@@ -20,7 +23,9 @@ myLibrary = [];
 newBook.addEventListener('mousedown', popUp);
 
 btnAdd.addEventListener('mousedown', () => {
-  addBookToLibrary();
+  let isRead = setBookStatus();
+
+  addBookToLibrary(isRead);
   addBookToDisplay();
   [title, author, totalPages, completedPages].forEach(item => {
     item.value = '';
@@ -28,7 +33,12 @@ btnAdd.addEventListener('mousedown', () => {
   checkBox.checked = false;
 
   saveChanges();
+  addTableValues();
 });
+
+function setBookStatus() {
+  return !(totalPages.value - completedPages.value);
+}
 
 btnCancel.addEventListener('mousedown', () => {
   blockNewBook.classList.remove('active');
@@ -48,76 +58,67 @@ function showLocalMode() {
   newBook.style.marginBottom = `${margin}px`;
   newBook.style.marginRight = `${margin}px`;
 
-  /* let storedArr = localStorage.getItem('myLibrary'); */
-
-/*   if(storage && storedArr.length > 0) {
-    myLibrary = storedArr;
-    addBookToDisplay(myLibrary)
-  } */
-
   let i = 0;
   let statement = localStorage.getItem(`${[i]}.title`);
   if(storage) {
     while(statement !== null) {
-      let storageTitle = localStorage.getItem(`${[i]}.title`);
-      let storageAuthor = localStorage.getItem(`${[i]}.author`);
-      let storageTotalPages = localStorage.getItem(`${[i]}.totalPages`);
-      let storageCompletedPages = localStorage.getItem(`${[i]}.completedPages`);
-      myLibrary.push(new Book(storageTitle, storageAuthor, storageTotalPages, storageCompletedPages));
+      let title = localStorage.getItem(`${[i]}.title`);
+      let author = localStorage.getItem(`${[i]}.author`);
+      let totalPages = localStorage.getItem(`${[i]}.totalPages`);
+      let completedPages = localStorage.getItem(`${[i]}.completedPages`);
+      let isRead = localStorage.getItem(`${[i]}.isRead`);
+      myLibrary.push(new Book(title, author, totalPages, completedPages, isRead));
       ++i;
       statement = localStorage.getItem(`${[i]}.title`);
     }
   }
 
   addBookToDisplay(myLibrary);
+  addTableValues()
 }
 
 function popUp() {
   blockNewBook.classList.add('active');
 }
 
-function addBookToLibrary() {
-  myLibrary.push(new Book(title.value, author.value, totalPages.value, completedPages.value));
+function addBookToLibrary(isRead) {
+  myLibrary.push(new Book(title.value, author.value, totalPages.value, completedPages.value, isRead));
 }
 
 class Book {
-  constructor(title, author, totalPages, completedPages) {
+  constructor(title, author, totalPages, completedPages, isRead) {
     this.title = title
     this.author = author
     this.totalPages = totalPages
     this.completedPages = completedPages
+    this.isRead = isRead
   }
 }
 
 function addBookToDisplay(array) {
-
-  
   if(array) {
     for(let i = 0; i < array.length; ++i) {
       let div = document.createElement('div');
-      div.classList.add('bookCard');
-      
-      newBook.after(div);
-      let margin = countDivMargins(div);
-      div.style.marginRight = `${margin}px`;
-      div.style.marginBottom = `${margin}px`;
 
+      settingElement(div);
       div.setAttribute('data-index', `${i}`);
-
       addInfoInCard(div);
     }
   } else {
     let div = document.createElement('div');
-    div.classList.add('bookCard');
-    
-    newBook.after(div);
-    let margin = countDivMargins(div);
-    div.style.marginRight = `${margin}px`;
-    div.style.marginBottom = `${margin}px`;
+
+    settingElement(div);
     div.setAttribute('data-index', `${myLibrary.length - 1}`)
-  
     addInfoInCard(div);
   }
+}
+
+function settingElement(elem) {
+  elem.classList.add('bookCard');
+  newBook.after(elem);
+  let margin = countDivMargins(elem);
+  elem.style.marginRight = `${margin}px`;
+  elem.style.marginBottom = `${margin}px`;
 }
 
 function countDivMargins(div) {
@@ -143,7 +144,10 @@ function setControlArea(elem) {
 
   let remove = addElement('button', divControl, 'edit', '50%', '100%');
   remove.textContent = 'Remove';
-  remove.addEventListener('mousedown', () => removeCard(elem));
+  remove.addEventListener('mousedown', () => {
+    removeCard(elem);
+    addTableValues();
+  })
 }
 
 function setInfoArea(elem) {
@@ -181,9 +185,6 @@ function setCountingArea(elem) {
   displayCompletedPages.textContent = `${myLibrary[elemId].completedPages}`;
   displayTotalPages.textContent = `${myLibrary[elemId].totalPages}`;
 }
-
-
-
 
 function addElement(elemKind, parentElem, attr, width, height) {
   let childElement = document.createElement(elemKind);
@@ -240,6 +241,34 @@ function changeReadingStatus() {
   }
 }
 
+function addTableValues() {
+  for(let i = 0; i < tableKeys.length; i++) {
+    if(tableKeys[i].textContent == 'Books') {
+      tableValues[i].textContent = `${myLibrary.length}`;
+    } else if (tableKeys[i].textContent == 'Completed Books') {
+      let count = 0;
+      for(let j = 0; j < myLibrary.length; j++) {
+        if(myLibrary[j].isRead == 'true') {
+          count++;
+        }
+      } 
+      tableValues[i].textContent = count;
+    } else if(tableKeys[i].textContent == 'Total Pages') {
+      let count = 0;
+      for(let j = 0; j < myLibrary.length; j++) {
+        count += +myLibrary[j].totalPages
+      }
+      tableValues[i].textContent = count; 
+    } else if(tableKeys[i].textContent == 'Completed') {
+      let count = 0;
+      for(let j = 0; j < myLibrary.length; j++) {
+        count += +myLibrary[j].completedPages;
+      }
+      tableValues[i].textContent = count; 
+    }
+  }
+}
+
 function storageAvailable(type) {
 	try {
 		var storage = window[type],
@@ -253,18 +282,13 @@ function storageAvailable(type) {
 	}
 }
 
-/* window.onload = () => {
-  // изменить выполнение этих команд
-  // после выбора пользователем метода
-  // сохранения даннх
-} */
-
 function saveChanges() {
   for(let i = 0; i < myLibrary.length; i++) {
     localStorage.setItem(`${[i]}.title`, `${myLibrary[i].title}`)
     localStorage.setItem(`${[i]}.author`, `${myLibrary[i].title}`)
     localStorage.setItem(`${[i]}.totalPages`, `${myLibrary[i].totalPages}`)
     localStorage.setItem(`${[i]}.completedPages`, `${myLibrary[i].completedPages}`)
+    localStorage.setItem(`${[i]}.isRead`, `${myLibrary[i].isRead}`)
   }
 }
 
