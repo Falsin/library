@@ -338,15 +338,6 @@ form label:nth-child(4) .completedPages {
   background: rgba(255, 0, 0, 0.76);
 }
 
-.active {
-  z-index: 3;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 #no, #yes {
   .size(20vmin, 20vmin);
   border: solid red 1px;
@@ -354,4 +345,25 @@ form label:nth-child(4) .completedPages {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.auth {
+  .size(100%, 100%);
+  display: none;
+  background: black;
+}
+
+.auth div {
+  opacity: 0.9;
+  .size(70vmin, 70vmin);
+  background: rgba(255, 0, 0, 0.76);
+}
+
+.active {
+  z-index: 3;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
