@@ -1,6 +1,5 @@
 const startPage = document.getElementById('startPage');
 
-const btnCloud = document.getElementById('cloud');
 const divAuth = document.querySelector('.auth');
 const googleAccount = document.getElementById('googleAccount');
 
@@ -25,17 +24,6 @@ const deleteDate = document.querySelector('.deleteDate');
 
 const btnNo = document.getElementById('no');
 const btnYes = document.getElementById('yes');
-
-btnCloud.addEventListener('mousedown', () =>  {
-  startPage.style.display = 'none';
-  divAuth.classList.add('active');
-});
-
-/* googleAccount.addEventListener('mousedown', () =>  {
-
-});  */
-
-btnLocal.addEventListener('mousedown', showLocalMode);
 
 myLibrary = [];
 
@@ -75,11 +63,8 @@ btnNo.addEventListener('mousedown', () => {
 
 btnYes.addEventListener('mousedown', removeLocalDate);
 
-function showLocalMode() {
+window.onload = () => {
   let storage = storageAvailable('localStorage');
-
-  startPage.style.display = 'none';
-  field.style.display = 'flex';
 
   let margin = countDivMargins(newBook);
   bookList.style.paddingLeft = `${margin}px`;
@@ -358,14 +343,3 @@ function saveChanges() {
     localStorage.setItem(`${[i]}.isRead`, `${myLibrary[i].isRead}`)
   }
 }
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDOgCdTz5mM2w79x2LHXIZcN1cB1CwZHxw",
-  authDomain: "library-51143.firebaseapp.com",
-  databaseURL: "https://library-51143-default-rtdb.firebaseio.com",
-  projectId: "library-51143",
-  storageBucket: "library-51143.appspot.com",
-  messagingSenderId: "1029123689287",
-  appId: "1:1029123689287:web:b0f98b8190e3b577a99a62",
-  measurementId: "G-1GX8MMRD75"
-};
