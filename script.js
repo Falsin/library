@@ -1,9 +1,3 @@
-const startPage = document.getElementById('startPage');
-
-const divAuth = document.querySelector('.auth');
-const googleAccount = document.getElementById('googleAccount');
-
-const btnLocal = document.getElementById('local');
 const field = document.getElementById('field');
 
 const bookList = document.getElementById('bookList');
@@ -25,23 +19,61 @@ const deleteDate = document.querySelector('.deleteDate');
 const btnNo = document.getElementById('no');
 const btnYes = document.getElementById('yes');
 
+const titleLabel = document.querySelector('.titleLabel');
+
 myLibrary = [];
 
 newBook.addEventListener('mousedown', popUp);
 
 btnAdd.addEventListener('mousedown', () => {
-  let isRead = setBookStatus(totalPages.value, completedPages.value);
+  let isValid = checkValues();
 
-  addBookToLibrary(isRead);
-  addBookToDisplay();
-  [title, author, totalPages, completedPages].forEach(item => {
-    item.value = '';
-  })
-  checkBox.checked = false;
+  if(isValid) {
+    let isRead = setBookStatus(totalPages.value, completedPages.value);
 
-  saveChanges();
-  addTableValues();
+    addBookToLibrary(isRead);
+    addBookToDisplay();
+    [title, author, totalPages, completedPages].forEach(item => {
+      item.value = '';
+    })
+    checkBox.checked = false;
+
+    saveChanges();
+    addTableValues();
+  }
+  field.style.background = 'red';
+
 });
+
+/* titleLabel.addEventListener('mousedown', () => {
+  titleLabel.classList.add('moveTop');
+}) */
+
+title.onfocus = function() {
+  titleLabel.classList.add('moveTop');
+}
+
+title.onfocus = function() {
+  titleLabel.classList.add('moveTop');
+}
+
+title.onblur = function() {
+  titleLabel.classList.remove('moveTop');
+  titleLabel.classList.add('moveBottom');
+}
+
+
+function checkValues() {
+  let titleLength = title.value.length > 0 && title.value.length <= 40;
+
+  if(!titleLength) {
+    titleLabel.classList.add('error');
+  }
+  let authorLength = author.value.length > 0 && author.value.length <= 40;
+  let totalNumber = totalPages.value > 0 && author.value.length <= 9999999;
+  let completedNumber = totalPages.value >= 0 && totalPages.value <= totalPages.value;
+  return titleLength && authorLength && totalNumber && completedNumber;
+}
 
 function setBookStatus(total, completed) {
   return !(total - completed);
@@ -330,7 +362,8 @@ function removeLocalDate() {
       bookCards[i].remove();
     }
   }
-  deleteDate.classList.remove('active');  
+  deleteDate.classList.remove('active');
+  addTableValues();   
 }
 
 function saveChanges() {

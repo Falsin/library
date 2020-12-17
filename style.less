@@ -367,3 +367,43 @@ form label:nth-child(4) .completedPages {
   align-items: center;
   justify-content: center;
 }
+
+.titleLabel {
+  position: relative;
+  border: solid red 1px;
+  &:before {
+    top: 0;
+    left: 1vmin;
+    position: absolute;
+    display: block;
+    content: "Title";}
+
+  &.moveTop:before {
+    animation-name: moveTop;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+  &.moveBottom:before {
+    animation-name: moveBottom;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes moveTop {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -4vmin;
+  }
+}
+
+@keyframes moveBottom {
+  0% {
+    top: -4vmin;
+  }
+  100% {
+    top: 0;
+  }
+}
