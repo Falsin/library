@@ -19,7 +19,8 @@ const deleteDate = document.querySelector('.deleteDate');
 const btnNo = document.getElementById('no');
 const btnYes = document.getElementById('yes');
 
-const titleLabel = document.querySelector('.titleLabel');
+const labels = document.querySelectorAll('.labels');
+const inputsArray = [title, author, totalPages, completedPages]
 
 myLibrary = [];
 
@@ -33,7 +34,7 @@ btnAdd.addEventListener('mousedown', () => {
 
     addBookToLibrary(isRead);
     addBookToDisplay();
-    [title, author, totalPages, completedPages].forEach(item => {
+    inputsArray.forEach(item => {
       item.value = '';
     })
     checkBox.checked = false;
@@ -45,34 +46,50 @@ btnAdd.addEventListener('mousedown', () => {
 
 });
 
-/* titleLabel.addEventListener('mousedown', () => {
-  titleLabel.classList.add('moveTop');
-}) */
-
-title.onfocus = function() {
-  titleLabel.classList.add('moveTop');
-}
-
-title.onfocus = function() {
-  titleLabel.classList.add('moveTop');
-}
-
-title.onblur = function() {
-  titleLabel.classList.remove('moveTop');
-  titleLabel.classList.add('moveBottom');
-}
-
-
-function checkValues() {
-  let titleLength = title.value.length > 0 && title.value.length <= 40;
-
-  if(!titleLength) {
-    titleLabel.classList.add('error');
+inputsArray.forEach((item, id) => {
+  item.onfocus = () => {
+    labels[id].classList.remove('moveBottom');
+    labels[id].classList.add('moveTop');
   }
-  let authorLength = author.value.length > 0 && author.value.length <= 40;
-  let totalNumber = totalPages.value > 0 && author.value.length <= 9999999;
-  let completedNumber = totalPages.value >= 0 && totalPages.value <= totalPages.value;
-  return titleLength && authorLength && totalNumber && completedNumber;
+  item.onblur = () => {
+    checkValues(id)
+  }
+});
+
+function checkValues(id) {
+  if(inputsArray[id].value.length == 0) {
+    labels[id].classList.remove('moveTop');
+    labels[id].classList.remove('invalidValue');
+    labels[id].classList.remove('validValue');
+    labels[id].classList.add('moveBottom');
+    return;
+  }
+
+  if(id == 0) {
+    let titleLength = title.value.length > 0 && title.value.length <= 40;
+    setMoveClasses(titleLength, id);
+  } else if(id == 1) {
+    let authorLength = author.value.length > 0 && author.value.length <= 40;
+    setMoveClasses(authorLength, id);
+  } else if(id == 2) {
+    let totalNumber = totalPages.value > 0 && totalPages.value<= 9999999;
+    setMoveClasses(totalNumber, id);
+  } else if(id == 3) {
+    let completedNumber = completedPages.value >= 0 && completedPages.value <= totalPages.value;
+    setMoveClasses(completedNumber, id);
+  }
+}
+
+function setMoveClasses(item, id) {
+  if(item) {
+    labels[id].classList.remove('invalidValue');
+    labels[id].classList.add('validValue');
+    labels[id].classList.add('moveTop');
+  } else {
+    labels[id].classList.remove('validValue');
+    labels[id].classList.add('invalidValue');
+  }
+  // добавить классы moveTop и moveBotton
 }
 
 function setBookStatus(total, completed) {
@@ -84,6 +101,15 @@ btnCancel.addEventListener('mousedown', () => {
 });
 
 checkBox.addEventListener('change', changeReadingStatus);
+
+function changeReadingStatus() {
+  if(checkBox.checked) {
+    completedPages.value = totalPages.value;
+    checkBox.setAttribute('disabled', 'disabled');
+    checkValues(3);
+  }
+
+}
 
 deleteLocalStorage.addEventListener('mousedown', () => {
   deleteDate.classList.add('active');
@@ -303,12 +329,6 @@ function decrementNumPages(elem) {
 
     let bookStatus = setBookStatus(myLibrary[elemId].totalPages, myLibrary[elemId].completedPages);
     myLibrary[elemId].isRead = bookStatus;
-  }
-}
-
-function changeReadingStatus() {
-  if(checkBox.checked) {
-    completedPages.value = totalPages.value;
   }
 }
 

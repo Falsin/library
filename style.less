@@ -183,7 +183,7 @@ table .value {
   grid-column-start: 2;
   grid-column-end: 4;
   .size(75vmin, 75vmin);
-  background: hsl(0, 0%, 50%);
+  background: hsl(0, 0%, 25%);
   opacity: 0.9;
 }
 
@@ -234,8 +234,52 @@ form label:nth-child(4) .completedPages {
   .size(90%, auto);
 }
 
-#checkBox {
-  .size(10%, auto);
+.switch {
+  right: -5vmin;
+  .size(10vmin, 3.5vmin);
+  position: relative;
+  display: inline-block;
+}
+
+.switch input {
+  display:none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  top: -0.25vmin;
+  left: 0.25vmin;
+  .size(4vmin, 4vmin);
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(5.5vmin);
+  -ms-transform: translateX(5.5vmin);
+  transform: translateX(5.5vmin);
 }
 
 .bookCard {
@@ -368,15 +412,49 @@ form label:nth-child(4) .completedPages {
   justify-content: center;
 }
 
-.titleLabel {
+@keyframes moveTop {
+  0% {
+    top: 0;
+    color: white;
+  }
+  100% {
+    top: -4vmin;
+    color: hsl(201, 70%, 55%);
+  }
+}
+
+@keyframes moveBottom {
+  0% {
+    top: -4vmin;
+    color: hsl(201, 70%, 55%);
+  }
+  100% {
+    top: 0;
+    color: white;
+  }
+}
+
+.labels {
   position: relative;
-  border: solid red 1px;
   &:before {
     top: 0;
     left: 1vmin;
     position: absolute;
     display: block;
-    content: "Title";}
+    content: "Title";
+    color: white;}
+
+  &.labelAuthor:before {
+    content: "Author";
+  }
+
+  &.labelTotalPages:before {
+    content: "Total pages";
+  }
+
+  &.labelCompletedPages:before {
+    content: "Completed pages";
+  }
 
   &.moveTop:before {
     animation-name: moveTop;
@@ -388,22 +466,40 @@ form label:nth-child(4) .completedPages {
     animation-duration: 1s;
     animation-fill-mode: forwards;
   }
+
+  & input {
+    background: none;
+    border: none;
+    outline: none;
+  }
+
+  &:after {
+    position: absolute;
+    bottom: -1vmin;
+    .size(100%, 1.5px);
+    background: gray;
+    content: "";
+  }
+
+  &.labelCompletedPages:after,
+  &.labelTotalPages:after {
+    .size(90%, 1.5px);
+  }
+
+  &.validValue:after {
+    background: hsl(88, 100%, 25%);
+  } 
+
+  /* &.invalidValue:before {
+    color: red !important;
+  }  */
+
+  &.invalidValue:after {
+    background: red;
+  } 
+
 }
 
-@keyframes moveTop {
-  0% {
-    top: 0;
-  }
-  100% {
-    top: -4vmin;
-  }
-}
-
-@keyframes moveBottom {
-  0% {
-    top: -4vmin;
-  }
-  100% {
-    top: 0;
-  }
-}
+.blockNewBook .labels.invalidValue:before {
+  color: red !important;
+} 

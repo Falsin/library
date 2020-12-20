@@ -57,18 +57,21 @@
     <div class="blockNewBook">
       <h2>Add new book</h2>
       <form>
-        <label class="titleLabel">
+        <label class="labels">
           <input type="text" class="title">
         </label>
-        <label>
-          <input type="text" placeholder="Author" class="author">
+        <label class="labels labelAuthor">
+          <input type="text" class="author">
         </label>
-        <label>
-          <input type="text" placeholder="Total pages" class="totalPages">
+        <label class="labels labelTotalPages">
+          <input type="text" class="totalPages">
         </label>
-        <label>
-          <input type="text" placeholder="Completed pages" class="completedPages">
-          <input type="checkbox" id="checkBox">
+        <label class="labels labelCompletedPages">
+          <input type="text" class="completedPages">
+          <label class="switch">
+            <input type="checkbox" id="checkBox">
+            <span class="slider round"></span>
+          </label>
         </label>
       </form>
       <div id="buttons">
