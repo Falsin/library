@@ -56,6 +56,41 @@ inputsArray.forEach((item, id) => {
   }
 });
 
+/* inputsArray.slice(-2).forEach(item => {
+  item.addEventListener('input', (e) => {
+    if(isNaN(e.data)) {
+      item.value =  item.value.slice(0, -1);
+    } else {
+      if(item.value > 9999999) {
+        item.value =  item.value.slice(0, -1);
+      }
+    }
+
+  }) 
+})
+ */
+
+inputsArray[2].addEventListener('input', (e) => {
+  if(isNaN(e.data)) {
+    inputsArray[2].value =  inputsArray[2].value.slice(0, -1);
+  } else {
+    if(inputsArray[2].value > 9999999) {
+      labels[2].classList.add('invalidValue');
+    }
+  }
+})
+
+inputsArray[3].addEventListener('input', (e) => {
+  if(isNaN(e.data)) {
+    inputsArray[3].value =  inputsArray[2].value.slice(0, -1);
+  } else {
+    if(inputsArray[3].value > 9999999 || inputsArray[3].value > inputsArray[2].value) {
+      labels[3].classList.add('invalidValue');
+    }
+  }
+})
+
+
 function checkValues(id) {
   if(inputsArray[id].value.length == 0) {
     labels[id].classList.remove('moveTop');
@@ -74,8 +109,9 @@ function checkValues(id) {
   } else if(id == 2) {
     let totalNumber = totalPages.value > 0 && totalPages.value<= 9999999;
     setMoveClasses(totalNumber, id);
+  
   } else if(id == 3) {
-    let completedNumber = completedPages.value >= 0 && completedPages.value <= totalPages.value;
+    let completedNumber = completedPages.value >= 0 && completedPages.value <= totalPages.value && completedPages.value <= 9999999;
     setMoveClasses(completedNumber, id);
   }
 }
@@ -85,11 +121,12 @@ function setMoveClasses(item, id) {
     labels[id].classList.remove('invalidValue');
     labels[id].classList.add('validValue');
     labels[id].classList.add('moveTop');
+
+    checkBox.removeAttribute('disabled');
   } else {
     labels[id].classList.remove('validValue');
     labels[id].classList.add('invalidValue');
   }
-  // добавить классы moveTop и moveBotton
 }
 
 function setBookStatus(total, completed) {
@@ -105,7 +142,7 @@ checkBox.addEventListener('change', changeReadingStatus);
 function changeReadingStatus() {
   if(checkBox.checked) {
     completedPages.value = totalPages.value;
-    checkBox.setAttribute('disabled', 'disabled');
+    /* checkBox.setAttribute('disabled', 'disabled'); */
     checkValues(3);
   }
 

@@ -23,6 +23,8 @@ body {
   .size(100vw, 100vh);
   font-size: 16px;
   position: relative;
+  font-family: Helvetica, sans-serif;
+  font-weight: 500;
 }
 
 /* #startPage {
@@ -221,7 +223,9 @@ form label {
 }
 
 form label input {
-  .size(100%, auto);
+  .size(95%, auto);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 form label:nth-child(3),
@@ -231,13 +235,18 @@ form label:nth-child(4) {
 
 form label:nth-child(3) .totalPages,
 form label:nth-child(4) .completedPages {
-  .size(90%, auto);
+  .size(95%, auto);
+}
+
+.labelCompletedPages {
+  position: relative;
 }
 
 .switch {
-  right: -5vmin;
-  .size(10vmin, 3.5vmin);
-  position: relative;
+  top: -1vmin;
+  right: -40vmin;
+  /* .size(10vmin, 5vmin); */
+  position: absolute;
   display: inline-block;
 }
 
@@ -246,6 +255,7 @@ form label:nth-child(4) .completedPages {
 }
 
 .slider {
+  .size(11vmin, 5vmin);
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -261,8 +271,8 @@ form label:nth-child(4) .completedPages {
   position: absolute;
   content: "";
   top: -0.25vmin;
-  left: 0.25vmin;
-  .size(4vmin, 4vmin);
+  left: -0.25vmin;
+  .size(5.5vmin, 5.5vmin);
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -277,9 +287,17 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(5.5vmin);
-  -ms-transform: translateX(5.5vmin);
-  transform: translateX(5.5vmin);
+  -webkit-transform: translateX(6vmin);
+  -ms-transform: translateX(6vmin); 
+  transform: translateX(6vmin);
+}
+
+.slider.round {
+  border-radius: 999999px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .bookCard {
@@ -437,12 +455,14 @@ input:checked + .slider:before {
 .labels {
   position: relative;
   &:before {
+    .size(95%, auto);
     top: 0;
     left: 1vmin;
     position: absolute;
     display: block;
     content: "Title";
-    color: white;}
+    color: white;
+    font-size: 1em;}
 
   &.labelAuthor:before {
     content: "Author";
@@ -483,23 +503,52 @@ input:checked + .slider:before {
 
   &.labelCompletedPages:after,
   &.labelTotalPages:after {
-    .size(90%, 1.5px);
+    .size(100%, 1.5px);
   }
 
   &.validValue:after {
     background: hsl(88, 100%, 25%);
   } 
 
-  /* &.invalidValue:before {
-    color: red !important;
-  }  */
-
   &.invalidValue:after {
     background: red;
   } 
 
+  &.invalidValue:before {
+    color: red !important;
+    top: -7vmin !important;
+  }
+
+  &.invalidValue:before {
+    content: "Title cannot be empty and length must be less than 40";
+  }
+
+  &.invalidValue.labelAuthor:before {
+    content: "Author cannot be empty and length must be less than 40";
+  }
+
+  &.invalidValue.labelTotalPages:before {
+    content: "Total pages number should be more than 0 and less than 9999999";
+    .size(160%, auto);
+  }
+
+  &.invalidValue.labelCompletedPages:before {
+    content: "Completed pages number should be less than total pages number";
+    .size(160%, auto);
+  }
 }
 
-.blockNewBook .labels.invalidValue:before {
-  color: red !important;
-} 
+/* .labelCompletedPages,
+.labelCompletedPages * {
+  border: solid red 1px;
+}
+
+.labelCompletedPages > input {
+  border: solid yellow 1px;
+  .size(100%, auto)
+}
+
+.labelTotalPages > input {
+  border: solid yellow 1px;
+  .size(100%, auto) !important;
+} */
