@@ -2,6 +2,7 @@ const field = document.getElementById('field');
 
 const bookList = document.getElementById('bookList');
 const newBook = document.getElementById('newBook');
+const menu = document.querySelector('.showMenu');
 const blockNewBook = document.querySelector('.blockNewBook');
 const title = document.querySelector('.title');
 const author = document.querySelector('.author');
@@ -24,7 +25,7 @@ const inputsArray = [title, author, totalPages, completedPages]
 
 myLibrary = [];
 
-newBook.addEventListener('mousedown', popUp);
+menu.addEventListener('mousedown', popUp);
 
 btnAdd.addEventListener('mousedown', () => {
   let isValid = true;
@@ -71,15 +72,17 @@ inputsArray.forEach((item, id) => {
       labels[id].classList.add('invalidValue');
     } else if(id == 3 && (item.value > 9999999 || item.value > inputsArray[2].value)) {
       labels[id].classList.add('invalidValue');
-    } else {
-      labels[id].classList.remove('invalidValue');
-      labels[id].classList.add('validValue');
+    } 
+
+    if(inputsArray[2].value == inputsArray[3].value) {
+      labels[3].classList.remove('invalidValue');
+      labels[3].classList.add('validValue');
     }
-  })
+  }) 
 })
 
 function checkValues(id) {
-  if(labels[id].classList.contains('invalidValue')) {
+  if(labels[id].classList.contains('invalidValue') && inputsArray[id].value.length == 0) {
     labels[id].classList.add('moveBottom');
     return;
   } else if(inputsArray[id].value.length == 0) {
@@ -114,8 +117,11 @@ function setMoveClasses(item, id) {
     labels[id].classList.remove('invalidValue');
     labels[id].classList.add('validValue');
     labels[id].classList.add('moveTop');
+    labels[id].classList.remove('moveBottom');
 
-    checkBox.removeAttribute('disabled');
+    if(id == 2) {
+      checkBox.removeAttribute('disabled', 'disabled');
+    }
   } else {
     labels[id].classList.remove('validValue');
     labels[id].classList.add('invalidValue');
@@ -136,8 +142,8 @@ function changeReadingStatus() {
   if(checkBox.checked) {
     completedPages.value = totalPages.value;
     checkValues(3);
+    checkBox.setAttribute('disabled', 'disabled');
   }
-
 }
 
 deleteLocalStorage.addEventListener('mousedown', () => {

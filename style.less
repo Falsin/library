@@ -44,15 +44,15 @@ body {
   font-size: 1.5em;
 }
 
-.choice {
+/* .choice {
   .size(100%, 80%);
   background: rgba(0, 0, 255, 0.658);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-}
+} */
 
-.choice > * {
+/* .choice > * {
   .size(100%, auto);
   display: flex;
   justify-content: space-evenly;
@@ -65,7 +65,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
+} */
 
 #field {
   display: flex;
@@ -118,8 +118,12 @@ header {
   overflow: scroll;
 }
 
-#bookList input {
+#bookList .showMenu {
   .size(50%, 50%);
+  transition: 1.5s;
+  background: orange;
+  position: relative;
+  cursor: pointer;
 }
 
 #newBook {
@@ -128,7 +132,49 @@ header {
   .size(40vmin, 50vmin);
   display: flex;
   flex-direction: column;
+}
 
+#newBook .showMenu:hover {
+  .size(100%, 100%)
+}
+
+#newBook .showMenu:hover::after  {
+  .size(16vmin, 2vmin)
+}
+
+.showMenu:before {
+  position: absolute;
+  transform-origin: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  .size(1.4vmin, 8.5vmin);
+  background: red;
+  transition: 1.5s;
+  transform-origin: center;
+}
+
+#newBook .showMenu:hover:before  {
+  .size(2vmin, 16vmin);
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+#newBook .showMenu:hover:after  {
+  .size(16vmin, 2vmin);
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.showMenu:after {
+  position: absolute;
+  transform-origin: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  .size(8.5vmin, 1.4vmin);
+  background: red;
+  transition: 1.5s;
 }
 
 #information {
