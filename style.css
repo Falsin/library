@@ -23,11 +23,6 @@ body {
   font-family: Helvetica, sans-serif;
   font-weight: 500;
 }
-/* #startPage {
-  .size(100%, 100%);
-  background: rgba(255, 0, 0, 0.548);
-  display: flex;
-} */
 #typeRecordingDevice {
   width: 70vmin;
   height: 70vmin;
@@ -231,9 +226,8 @@ form label:nth-child(4) .completedPages {
   position: relative;
 }
 .switch {
-  top: -1vmin;
+  top: 1vmin;
   right: -40vmin;
-  /* .size(10vmin, 5vmin); */
   position: absolute;
   display: inline-block;
 }
@@ -397,21 +391,21 @@ input:checked + .slider:before {
 }
 @keyframes moveTop {
   0% {
-    top: 0;
+    bottom: 0;
     color: white;
   }
   100% {
-    top: -4vmin;
+    bottom: 4vmin;
     color: hsl(201, 70%, 55%);
   }
 }
 @keyframes moveBottom {
   0% {
-    top: -4vmin;
+    bottom: 4vmin;
     color: hsl(201, 70%, 55%);
   }
   100% {
-    top: 0;
+    bottom: 0;
     color: white;
   }
 }
@@ -421,7 +415,7 @@ input:checked + .slider:before {
 .labels:before {
   width: 95%;
   height: auto;
-  top: 0;
+  bottom: 0;
   left: 1vmin;
   position: absolute;
   display: block;
@@ -474,7 +468,6 @@ input:checked + .slider:before {
 }
 .labels.invalidValue:before {
   color: red !important;
-  top: -7vmin !important;
 }
 .labels.invalidValue:before {
   content: "Title cannot be empty and length must be less than 40";
@@ -492,17 +485,3 @@ input:checked + .slider:before {
   width: 160%;
   height: auto;
 }
-/* .labelCompletedPages,
-.labelCompletedPages * {
-  border: solid red 1px;
-}
-
-.labelCompletedPages > input {
-  border: solid yellow 1px;
-  .size(100%, auto)
-}
-
-.labelTotalPages > input {
-  border: solid yellow 1px;
-  .size(100%, auto) !important;
-} */

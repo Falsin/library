@@ -27,12 +27,6 @@ body {
   font-weight: 500;
 }
 
-/* #startPage {
-  .size(100%, 100%);
-  background: rgba(255, 0, 0, 0.548);
-  display: flex;
-} */
-
 #typeRecordingDevice {
   .size(70vmin, 70vmin);
   background: black;
@@ -243,9 +237,8 @@ form label:nth-child(4) .completedPages {
 }
 
 .switch {
-  top: -1vmin;
+  top: 1vmin;
   right: -40vmin;
-  /* .size(10vmin, 5vmin); */
   position: absolute;
   display: inline-block;
 }
@@ -432,22 +425,22 @@ input:checked + .slider:before {
 
 @keyframes moveTop {
   0% {
-    top: 0;
+    bottom: 0;
     color: white;
   }
   100% {
-    top: -4vmin;
+    bottom: 4vmin;
     color: hsl(201, 70%, 55%);
   }
 }
 
 @keyframes moveBottom {
   0% {
-    top: -4vmin;
+    bottom: 4vmin;
     color: hsl(201, 70%, 55%);
   }
   100% {
-    top: 0;
+    bottom: 0;
     color: white;
   }
 }
@@ -456,7 +449,7 @@ input:checked + .slider:before {
   position: relative;
   &:before {
     .size(95%, auto);
-    top: 0;
+    bottom: 0;
     left: 1vmin;
     position: absolute;
     display: block;
@@ -516,7 +509,6 @@ input:checked + .slider:before {
 
   &.invalidValue:before {
     color: red !important;
-    top: -7vmin !important;
   }
 
   &.invalidValue:before {
@@ -537,18 +529,3 @@ input:checked + .slider:before {
     .size(160%, auto);
   }
 }
-
-/* .labelCompletedPages,
-.labelCompletedPages * {
-  border: solid red 1px;
-}
-
-.labelCompletedPages > input {
-  border: solid yellow 1px;
-  .size(100%, auto)
-}
-
-.labelTotalPages > input {
-  border: solid yellow 1px;
-  .size(100%, auto) !important;
-} */

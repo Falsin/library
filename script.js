@@ -27,7 +27,14 @@ myLibrary = [];
 newBook.addEventListener('mousedown', popUp);
 
 btnAdd.addEventListener('mousedown', () => {
-  let isValid = checkValues();
+  let isValid = true;
+  for(let i = 0; i < inputsArray.length; i++) {
+    if(inputsArray[i].value.length == 0) {
+      labels[i].classList.add('invalidValue');
+      isValid = false;
+    }
+  }
+  console.log(isValid);
 
   if(isValid) {
     let isRead = setBookStatus(totalPages.value, completedPages.value);
@@ -42,8 +49,6 @@ btnAdd.addEventListener('mousedown', () => {
     saveChanges();
     addTableValues();
   }
-  field.style.background = 'red';
-
 });
 
 inputsArray.forEach((item, id) => {
@@ -56,43 +61,28 @@ inputsArray.forEach((item, id) => {
   }
 });
 
-/* inputsArray.slice(-2).forEach(item => {
+inputsArray.forEach((item, id) => {
   item.addEventListener('input', (e) => {
-    if(isNaN(e.data)) {
+    if((id == 0 || id == 1) && item.value.length >= 40) {
+      labels[id].classList.add('invalidValue');
+    } else if((id == 2 || id == 3) && isNaN(e.data)) {
       item.value =  item.value.slice(0, -1);
+    } else if(id == 2 && item.value > 9999999) {
+      labels[id].classList.add('invalidValue');
+    } else if(id == 3 && (item.value > 9999999 || item.value > inputsArray[2].value)) {
+      labels[id].classList.add('invalidValue');
     } else {
-      if(item.value > 9999999) {
-        item.value =  item.value.slice(0, -1);
-      }
+      labels[id].classList.remove('invalidValue');
+      labels[id].classList.add('validValue');
     }
-
-  }) 
+  })
 })
- */
-
-inputsArray[2].addEventListener('input', (e) => {
-  if(isNaN(e.data)) {
-    inputsArray[2].value =  inputsArray[2].value.slice(0, -1);
-  } else {
-    if(inputsArray[2].value > 9999999) {
-      labels[2].classList.add('invalidValue');
-    }
-  }
-})
-
-inputsArray[3].addEventListener('input', (e) => {
-  if(isNaN(e.data)) {
-    inputsArray[3].value =  inputsArray[2].value.slice(0, -1);
-  } else {
-    if(inputsArray[3].value > 9999999 || inputsArray[3].value > inputsArray[2].value) {
-      labels[3].classList.add('invalidValue');
-    }
-  }
-})
-
 
 function checkValues(id) {
-  if(inputsArray[id].value.length == 0) {
+  if(labels[id].classList.contains('invalidValue')) {
+    labels[id].classList.add('moveBottom');
+    return;
+  } else if(inputsArray[id].value.length == 0) {
     labels[id].classList.remove('moveTop');
     labels[id].classList.remove('invalidValue');
     labels[id].classList.remove('validValue');
@@ -101,18 +91,21 @@ function checkValues(id) {
   }
 
   if(id == 0) {
-    let titleLength = title.value.length > 0 && title.value.length <= 40;
+    let titleLength = title.value.length > 0 && title.value.length < 40;
     setMoveClasses(titleLength, id);
+    return titleLength;
   } else if(id == 1) {
-    let authorLength = author.value.length > 0 && author.value.length <= 40;
+    let authorLength = author.value.length > 0 && author.value.length < 40;
     setMoveClasses(authorLength, id);
+    return authorLength;
   } else if(id == 2) {
     let totalNumber = totalPages.value > 0 && totalPages.value<= 9999999;
     setMoveClasses(totalNumber, id);
-  
+    return totalNumber;
   } else if(id == 3) {
     let completedNumber = completedPages.value >= 0 && completedPages.value <= totalPages.value && completedPages.value <= 9999999;
     setMoveClasses(completedNumber, id);
+    return completedNumber;
   }
 }
 
@@ -142,7 +135,6 @@ checkBox.addEventListener('change', changeReadingStatus);
 function changeReadingStatus() {
   if(checkBox.checked) {
     completedPages.value = totalPages.value;
-    /* checkBox.setAttribute('disabled', 'disabled'); */
     checkValues(3);
   }
 
