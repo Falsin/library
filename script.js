@@ -68,9 +68,49 @@ btnAdd.addEventListener('mousedown', () => {
   }
 })
 
-/* function editCurrentBook() {
+btnEdit.addEventListener('mousedown', () => {
+  let isValid = true;
+  for(let i = 0; i < inputsArray.length; i++) {
+    if(editInputsArray[i].value.length == 0) {
+      labels[i].classList.add('invalidValue');
+      isValid = false;
+    }
+  }
 
-} */
+  if(isValid) {
+    let isRead = setBookStatus(editTotalPages.value, editCompletedPages.value);
+
+    let elemId = +blockEditBook.dataset.bookid;
+    myLibrary[elemId].title = editTitle.value;
+    myLibrary[elemId].author = editAuthor.value;
+    myLibrary[elemId].totalPages = editTotalPages.value;
+    myLibrary[elemId].completedPages = editCompletedPages.value;
+    myLibrary[elemId].isRead = isRead;
+
+    checkBox.checked = false; 
+
+    let bookCard = document.querySelector(`[data-index='${elemId}']`);
+    let bookTitle = bookCard.querySelector('.bookTitle');
+    let bookAuthor = bookCard.querySelector('.bookAuthor');
+    let displayCompletedPages = bookCard.querySelector('.displayCompletedPages');
+    let displayTotalPages = bookCard.querySelector('.displayTotalPages');
+
+    bookTitle.textContent = myLibrary[elemId].title;
+    bookAuthor.textContent = myLibrary[elemId].author;
+    displayCompletedPages.textContent = myLibrary[elemId].completedPages;
+    displayTotalPages.textContent = myLibrary[elemId].totalPages;
+
+    saveChanges();
+    addTableValues();
+    for(let i = 0; i < inputsArray.length; i++) {
+      labels[i].classList.remove('moveTop');
+      labels[i].classList.add('moveBottom');
+      labels[i].classList.remove('validValue');
+    }
+
+    blockEditBook.classList.remove('active');
+  }
+})
 
 inputsArray.forEach((item, id) => {
   item.onfocus = () => {
@@ -85,6 +125,12 @@ inputsArray.forEach((item, id) => {
 inputsArray.forEach((item, id) => {
   item.addEventListener('input', () => checkValues(inputsArray, id))
 })
+
+editInputsArray.forEach((item, id) => {
+  item.addEventListener('input', () => checkValues(editInputsArray, id))
+})
+
+
 
 function checkValues(array, id) {
   if(labels[id].classList.contains('invalidValue') && array[id].value.length == 0) {
@@ -111,7 +157,8 @@ function checkValues(array, id) {
     setMoveClasses(totalNumber, array, id);
     return totalNumber;
   } else if(id == 3) {
-    let completedNumber = array[id].value >= 0 && array[id].value <= array[2].value && array[id].value <= 9999999;
+    let completedNumber = array[id].value >= 0 && array[id].value <= array[2].value && 
+                          array[id].value <= 9999999;
     setMoveClasses(completedNumber, array, id);
     return completedNumber;
   }
@@ -200,20 +247,9 @@ function popUp(...array) {
     editInputsArray[3].value = `${myLibrary[array[1]].completedPages}`;
 
     editInputsArray.forEach((item, id) => {
-      checkValues(editInputsArray, id)
+      checkValues(editInputsArray, id);
     })
   }
-
-
-  console.log(editInputsArray[0].parentNode);
-
-  editInputsArray.forEach((item, id) => {
-    checkValues(editInputsArray, id)
-  })
-  
-/*   .parentNode.forEach(item => {
-    checkValues(item);
-  }) */
 }
 
 function addBookToLibrary(isRead) {
@@ -277,7 +313,10 @@ function setControlArea(elem) {
 
   let edit = addElement('button', divControl, 'edit', '50%', '100%');
   edit.textContent = 'Edit';
-  edit.addEventListener('mousedown', () => popUp(blockEditBook, elemId));
+  edit.addEventListener('mousedown', () => {
+    blockEditBook.setAttribute('data-bookId', `${elemId}`);
+    popUp(blockEditBook, elemId);
+  });
 
   let remove = addElement('button', divControl, 'edit', '50%', '100%');
   remove.textContent = 'Remove';
@@ -285,7 +324,6 @@ function setControlArea(elem) {
     removeCard(elem);
     addTableValues();
     myLibrary.splice(elemId, 1);
-
   })
 }
 
@@ -316,7 +354,6 @@ function setCountingArea(elem) {
     incrementNumPages(elem);
     addTableValues();
     saveChanges();
-
   });
 
   decrementPages.addEventListener('mousedown', () =>  {
