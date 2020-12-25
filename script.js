@@ -83,30 +83,7 @@ inputsArray.forEach((item, id) => {
 });
 
 inputsArray.forEach((item, id) => {
-  item.addEventListener('input', (e) => {
-    if((id == 0 || id == 1) && item.value.length >= 40) {
-      labels[id].classList.add('invalidValue');
-    } else if((id == 2 || id == 3) && isNaN(e.data)) {
-      item.value =  item.value.slice(0, -1);
-    } else if(id == 2) {
-      if(item.value > 9999999) {
-        labels[id].classList.add('invalidValue');
-      }
-    } else if(id == 3) {
-      if(item.value > 9999999 || item.value > inputsArray[2].value) {
-        labels[id].classList.add('invalidValue');
-      } else if(inputsArray[3].value == inputsArray[2].value && inputsArray[2].value > 0) {
-        labels[3].classList.remove('invalidValue');
-        labels[3].classList.add('validValue');
-      } else if(inputsArray[id].value !== '' && inputsArray[id].value <= inputsArray[2].value && inputsArray[id].value <= 9999999) {
-        labels[id].classList.remove('invalidValue');
-        labels[id].classList.add('validValue');
-      }
-    } else if(id != 3 && item.value.length < 40) {
-      labels[id].classList.remove('invalidValue');
-      labels[id].classList.add('validValue');
-    } 
-  })
+  item.addEventListener('input', () => checkValues(inputsArray, id))
 })
 
 function checkValues(array, id) {
