@@ -205,7 +205,8 @@ table .value {
   height: auto;
   text-align: right;
 }
-.blockNewBook {
+.blockNewBook,
+.blockEditBook {
   margin: auto;
   display: none;
   z-index: 2;
@@ -218,20 +219,22 @@ table .value {
   background: hsl(0, 0%, 25%);
   opacity: 0.9;
 }
-.blockNewBook label {
+.blockNewBook label,
+.blockEditBook label {
   display: flex;
 }
-.blockNewBook h2 {
+.blockNewBook h2,
+.blockEditBook h2 {
   color: white;
   width: auto;
   height: 12%;
 }
-#buttons {
+.buttons {
   display: flex;
   width: 100%;
   height: 12%;
 }
-#buttons input {
+.buttons input {
   width: 50%;
   height: auto;
 }

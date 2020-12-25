@@ -4,12 +4,23 @@ const bookList = document.getElementById('bookList');
 const newBook = document.getElementById('newBook');
 const menu = document.querySelector('.showMenu');
 const blockNewBook = document.querySelector('.blockNewBook');
+const blockEditBook = document.querySelector('.blockEditBook');
 const title = document.querySelector('.title');
 const author = document.querySelector('.author');
 const totalPages = document.querySelector('.totalPages');
 const completedPages = document.querySelector('.completedPages');
-const btnAdd = document.getElementById('btnAdd');
-const btnCancel = document.getElementById('btnCancel');
+
+const editTitle = document.querySelector('.editTitle');
+const editAuthor = document.querySelector('.editAuthor');
+const editTotalPages = document.querySelector('.editTotalPages');
+const editCompletedPages = document.querySelector('.editCompletedPages');
+
+
+const btnAdd = document.querySelector('.btnAdd');
+const btnEdit = document.querySelector('.btnEdit');
+
+
+const btnsCancel = document.querySelectorAll('.btnCancel');
 const checkBox = document.getElementById('checkBox');
 
 const tableKeys = document.querySelectorAll('.key');
@@ -22,10 +33,11 @@ const btnYes = document.getElementById('yes');
 
 const labels = document.querySelectorAll('.labels');
 const inputsArray = [title, author, totalPages, completedPages]
+const editInputsArray = [editTitle, editAuthor, editTotalPages, editCompletedPages]
 
 myLibrary = [];
 
-menu.addEventListener('mousedown', popUp);
+menu.addEventListener('mousedown', () => popUp(blockNewBook));
 
 btnAdd.addEventListener('mousedown', () => {
   let isValid = true;
@@ -35,7 +47,6 @@ btnAdd.addEventListener('mousedown', () => {
       isValid = false;
     }
   }
-  console.log(isValid);
 
   if(isValid) {
     let isRead = setBookStatus(totalPages.value, completedPages.value);
@@ -49,8 +60,17 @@ btnAdd.addEventListener('mousedown', () => {
 
     saveChanges();
     addTableValues();
+    for(let i = 0; i < inputsArray.length; i++) {
+      labels[i].classList.remove('moveTop');
+      labels[i].classList.add('moveBottom');
+      labels[i].classList.remove('validValue');
+    }
   }
-});
+})
+
+/* function editCurrentBook() {
+
+} */
 
 inputsArray.forEach((item, id) => {
   item.onfocus = () => {
@@ -58,7 +78,7 @@ inputsArray.forEach((item, id) => {
     labels[id].classList.add('moveTop');
   }
   item.onblur = () => {
-    checkValues(id)
+    checkValues(inputsArray, id);
   }
 });
 
@@ -68,24 +88,32 @@ inputsArray.forEach((item, id) => {
       labels[id].classList.add('invalidValue');
     } else if((id == 2 || id == 3) && isNaN(e.data)) {
       item.value =  item.value.slice(0, -1);
-    } else if(id == 2 && item.value > 9999999) {
-      labels[id].classList.add('invalidValue');
-    } else if(id == 3 && (item.value > 9999999 || item.value > inputsArray[2].value)) {
-      labels[id].classList.add('invalidValue');
+    } else if(id == 2) {
+      if(item.value > 9999999) {
+        labels[id].classList.add('invalidValue');
+      }
+    } else if(id == 3) {
+      if(item.value > 9999999 || item.value > inputsArray[2].value) {
+        labels[id].classList.add('invalidValue');
+      } else if(inputsArray[3].value == inputsArray[2].value && inputsArray[2].value > 0) {
+        labels[3].classList.remove('invalidValue');
+        labels[3].classList.add('validValue');
+      } else if(inputsArray[id].value !== '' && inputsArray[id].value <= inputsArray[2].value && inputsArray[id].value <= 9999999) {
+        labels[id].classList.remove('invalidValue');
+        labels[id].classList.add('validValue');
+      }
+    } else if(id != 3 && item.value.length < 40) {
+      labels[id].classList.remove('invalidValue');
+      labels[id].classList.add('validValue');
     } 
-
-    if(inputsArray[2].value == inputsArray[3].value) {
-      labels[3].classList.remove('invalidValue');
-      labels[3].classList.add('validValue');
-    }
-  }) 
+  })
 })
 
-function checkValues(id) {
-  if(labels[id].classList.contains('invalidValue') && inputsArray[id].value.length == 0) {
+function checkValues(array, id) {
+  if(labels[id].classList.contains('invalidValue') && array[id].value.length == 0) {
     labels[id].classList.add('moveBottom');
     return;
-  } else if(inputsArray[id].value.length == 0) {
+  } else if(array[id].value.length == 0) {
     labels[id].classList.remove('moveTop');
     labels[id].classList.remove('invalidValue');
     labels[id].classList.remove('validValue');
@@ -94,37 +122,37 @@ function checkValues(id) {
   }
 
   if(id == 0) {
-    let titleLength = title.value.length > 0 && title.value.length < 40;
-    setMoveClasses(titleLength, id);
+    let titleLength = array[id].value.length > 0 && array[id].value.length < 40;
+    setMoveClasses(titleLength, array, id);
     return titleLength;
   } else if(id == 1) {
-    let authorLength = author.value.length > 0 && author.value.length < 40;
-    setMoveClasses(authorLength, id);
+    let authorLength = array[id].value.length > 0 && array[id].value.length < 40;
+    setMoveClasses(authorLength, array, id);
     return authorLength;
   } else if(id == 2) {
-    let totalNumber = totalPages.value > 0 && totalPages.value<= 9999999;
-    setMoveClasses(totalNumber, id);
+    let totalNumber = array[id].value > 0 && array[id].value<= 9999999;
+    setMoveClasses(totalNumber, array, id);
     return totalNumber;
   } else if(id == 3) {
-    let completedNumber = completedPages.value >= 0 && completedPages.value <= totalPages.value && completedPages.value <= 9999999;
-    setMoveClasses(completedNumber, id);
+    let completedNumber = array[id].value >= 0 && array[id].value <= array[2].value && array[id].value <= 9999999;
+    setMoveClasses(completedNumber, array, id);
     return completedNumber;
   }
 }
 
-function setMoveClasses(item, id) {
+function setMoveClasses(item, array, id) {
   if(item) {
-    labels[id].classList.remove('invalidValue');
-    labels[id].classList.add('validValue');
-    labels[id].classList.add('moveTop');
-    labels[id].classList.remove('moveBottom');
+    array[id].parentNode.classList.remove('invalidValue');
+    array[id].parentNode.classList.add('validValue');
+    array[id].parentNode.classList.add('moveTop');
+    array[id].parentNode.classList.remove('moveBottom');
 
     if(id == 2) {
       checkBox.removeAttribute('disabled', 'disabled');
     }
   } else {
-    labels[id].classList.remove('validValue');
-    labels[id].classList.add('invalidValue');
+    array[id].parentNode.classList.remove('validValue');
+    array[id].parentNode.classList.add('invalidValue');
   }
 }
 
@@ -132,16 +160,18 @@ function setBookStatus(total, completed) {
   return !(total - completed);
 }
 
-btnCancel.addEventListener('mousedown', () => {
-  blockNewBook.classList.remove('active');
-});
+btnsCancel.forEach(item => {
+  item.addEventListener('mousedown', (e) => {
+    e.target.parentNode.parentNode.classList.remove('active');
+  })
+})
 
 checkBox.addEventListener('change', changeReadingStatus);
 
 function changeReadingStatus() {
   if(checkBox.checked) {
     completedPages.value = totalPages.value;
-    checkValues(3);
+    checkValues(inputsArray, 3);
     checkBox.setAttribute('disabled', 'disabled');
   }
 }
@@ -184,8 +214,29 @@ window.onload = () => {
   addTableValues()
 }
 
-function popUp() {
-  blockNewBook.classList.add('active');
+function popUp(...array) {
+  array[0].classList.add('active');
+  if(array[1] !== undefined) {
+    editInputsArray[0].value = `${myLibrary[array[1]].title}`;
+    editInputsArray[1].value = `${myLibrary[array[1]].author}`;
+    editInputsArray[2].value = `${myLibrary[array[1]].totalPages}`;
+    editInputsArray[3].value = `${myLibrary[array[1]].completedPages}`;
+
+    editInputsArray.forEach((item, id) => {
+      checkValues(editInputsArray, id)
+    })
+  }
+
+
+  console.log(editInputsArray[0].parentNode);
+
+  editInputsArray.forEach((item, id) => {
+    checkValues(editInputsArray, id)
+  })
+  
+/*   .parentNode.forEach(item => {
+    checkValues(item);
+  }) */
 }
 
 function addBookToLibrary(isRead) {
@@ -249,6 +300,7 @@ function setControlArea(elem) {
 
   let edit = addElement('button', divControl, 'edit', '50%', '100%');
   edit.textContent = 'Edit';
+  edit.addEventListener('mousedown', () => popUp(blockEditBook, elemId));
 
   let remove = addElement('button', divControl, 'edit', '50%', '100%');
   remove.textContent = 'Remove';

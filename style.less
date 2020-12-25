@@ -216,7 +216,8 @@ table .value {
   text-align: right;
 }
 
-.blockNewBook {
+.blockNewBook,
+.blockEditBook {
   margin: auto;
   display: none;
   z-index: 2;
@@ -229,21 +230,23 @@ table .value {
   opacity: 0.9;
 }
 
-.blockNewBook label {
+.blockNewBook label,
+.blockEditBook label {
   display: flex;
 }
 
-.blockNewBook h2 {
+.blockNewBook h2,
+.blockEditBook h2{
   color: white;
   .size(auto, 12%);
 }
 
-#buttons {
+.buttons {
   display: flex;
   .size(100%, 12%);
 }
 
-#buttons input {
+.buttons input {
   .size(50%, auto);
 }
 
