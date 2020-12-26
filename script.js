@@ -20,8 +20,12 @@ const btnAdd = document.querySelector('.btnAdd');
 const btnEdit = document.querySelector('.btnEdit');
 
 
-const btnsCancel = document.querySelectorAll('.btnCancel');
-const checkBox = document.getElementById('checkBox');
+const btnCancelAdd = document.querySelector('.btnCancelAdd');
+const btnCancelEdit = document.querySelector('.btnCancelEdit');
+
+
+const addCheckBox = document.querySelector('.addCheckBox');
+const editCheckBox = document.querySelector('.editCheckBox');
 
 const tableKeys = document.querySelectorAll('.key');
 const tableValues = document.querySelectorAll('.value');
@@ -56,7 +60,7 @@ btnAdd.addEventListener('mousedown', () => {
     inputsArray.forEach(item => {
       item.value = '';
     })
-    checkBox.checked = false;
+    addCheckBox.checked = false;
 
     saveChanges();
     addTableValues();
@@ -87,7 +91,7 @@ btnEdit.addEventListener('mousedown', () => {
     myLibrary[elemId].completedPages = editCompletedPages.value;
     myLibrary[elemId].isRead = isRead;
 
-    checkBox.checked = false; 
+    btnEdit.checked = false; 
 
     let bookCard = document.querySelector(`[data-index='${elemId}']`);
     let bookTitle = bookCard.querySelector('.bookTitle');
@@ -113,34 +117,49 @@ btnEdit.addEventListener('mousedown', () => {
 })
 
 inputsArray.forEach((item, id) => {
+  const labels = item.parentNode;
   item.onfocus = () => {
-    labels[id].classList.remove('moveBottom');
-    labels[id].classList.add('moveTop');
+    labels.classList.remove('moveBottom');
+    labels.classList.add('moveTop');
   }
   item.onblur = () => {
     checkValues(inputsArray, id);
   }
 });
 
+editInputsArray.forEach((item, id) => {
+  const labels = item.parentNode;
+  item.onfocus = () => {
+    labels.classList.remove('moveBottom');
+    labels.classList.add('moveTop');
+  }
+  item.onblur = () => {
+    checkValues(editInputsArray, id);
+  }
+});
+
 inputsArray.forEach((item, id) => {
-  item.addEventListener('input', () => checkValues(inputsArray, id))
+  item.addEventListener('input', (e) => checkValues(inputsArray, id, e));
 })
 
 editInputsArray.forEach((item, id) => {
-  item.addEventListener('input', () => checkValues(editInputsArray, id))
+  item.addEventListener('input', (e) => {
+    checkValues(editInputsArray, id, e)
+  });
 })
 
 
 
-function checkValues(array, id) {
-  if(labels[id].classList.contains('invalidValue') && array[id].value.length == 0) {
-    labels[id].classList.add('moveBottom');
+function checkValues(array, id, e) {
+  const label = array[id].parentNode;
+  if(label.classList.contains('invalidValue') && array[id].value.length == 0) {
+    label.classList.add('moveBottom');
     return;
-  } else if(array[id].value.length == 0) {
-    labels[id].classList.remove('moveTop');
-    labels[id].classList.remove('invalidValue');
-    labels[id].classList.remove('validValue');
-    labels[id].classList.add('moveBottom');
+  } else if(array[id].value.length == 0 && !e) {
+    label.classList.remove('moveTop');
+    label.classList.remove('invalidValue');
+    label.classList.remove('validValue');
+    label.classList.add('moveBottom');
     return;
   }
 
@@ -153,18 +172,26 @@ function checkValues(array, id) {
     setMoveClasses(authorLength, array, id);
     return authorLength;
   } else if(id == 2) {
-    let totalNumber = array[id].value > 0 && array[id].value<= 9999999;
-    setMoveClasses(totalNumber, array, id);
+    let totalNumber = array[id].value > 0 && array[id].value <= 9999999;
+    
+    if(+array[id].value < +array[3].value) {
+      setMoveClasses(false, array, 3);
+    }
     return totalNumber;
   } else if(id == 3) {
-    let completedNumber = array[id].value >= 0 && array[id].value <= array[2].value && 
-                          array[id].value <= 9999999;
+    let completedNumber = +array[id].value >= 0 && +array[id].value <= +array[2].value && 
+                          +array[id].value <= 9999999;
     setMoveClasses(completedNumber, array, id);
     return completedNumber;
   }
 }
 
 function setMoveClasses(item, array, id) {
+  const mainBlock = array[id].parentNode.parentNode.parentNode;
+  const checkBox = mainBlock.querySelector(`[type='checkbox']`);
+  const completedPages = mainBlock.querySelector(`.completedPages`);
+  const totalPages = mainBlock.querySelector(`.totalPages`);
+
   if(item) {
     array[id].parentNode.classList.remove('invalidValue');
     array[id].parentNode.classList.add('validValue');
@@ -173,10 +200,21 @@ function setMoveClasses(item, array, id) {
 
     if(id == 2) {
       checkBox.removeAttribute('disabled', 'disabled');
+    } else if(id == 3 && totalPages.value == completedPages.value || completedPages.length == 0) {
+      checkBox.checked = true;
+      checkBox.setAttribute('disabled', 'disabled');
+    } else if(id == 3 && totalPages.value !== completedPages.value || completedPages.value > 0) {
+      checkBox.checked = false;
+      checkBox.removeAttribute('disabled', 'disabled');
     }
+
   } else {
     array[id].parentNode.classList.remove('validValue');
     array[id].parentNode.classList.add('invalidValue');
+    if(id == 2 || id == 3) {
+      checkBox.checked = false;
+      checkBox.setAttribute('disabled', 'disabled');
+    }
   }
 }
 
@@ -184,19 +222,31 @@ function setBookStatus(total, completed) {
   return !(total - completed);
 }
 
-btnsCancel.forEach(item => {
-  item.addEventListener('mousedown', (e) => {
-    e.target.parentNode.parentNode.classList.remove('active');
-  })
+btnCancelAdd.addEventListener('mousedown', (e) => {
+  e.target.parentNode.parentNode.parentNode.classList.remove('active');
 })
 
-checkBox.addEventListener('change', changeReadingStatus);
+btnCancelEdit.addEventListener('mousedown', (e) => {
+  e.target.parentNode.parentNode.parentNode.classList.remove('active');
+})
 
-function changeReadingStatus() {
-  if(checkBox.checked) {
+addCheckBox.addEventListener('change', () => {
+  changeReadingStatus(addCheckBox, inputsArray);
+});
+
+editCheckBox.addEventListener('change', () => {
+  changeReadingStatus(editCheckBox, editInputsArray);
+});
+
+
+function changeReadingStatus(item, array) {
+  const mainBlock = item.parentNode.parentNode.parentNode;
+  const completedPages = mainBlock.querySelector('.completedPages');
+  const totalPages = mainBlock.querySelector('.totalPages');
+  if(item.checked) {
     completedPages.value = totalPages.value;
-    checkValues(inputsArray, 3);
-    checkBox.setAttribute('disabled', 'disabled');
+    checkValues(array, 3);
+    item.setAttribute('disabled', 'disabled');
   }
 }
 

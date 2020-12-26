@@ -55,54 +55,58 @@
     </div>
   
     <div id="block" class="blockNewBook">
-      <h2>Add new book</h2>
-      <form>
-        <label class="labels">
-          <input type="text" class="title">
-        </label>
-        <label class="labels labelAuthor">
-          <input type="text" class="author">
-        </label>
-        <label class="labels labelTotalPages">
-          <input type="text" class="totalPages">
-        </label>
-        <label class="labels labelCompletedPages">
-          <input type="text" class="completedPages">
-          <label class="switch">
-            <input type="checkbox" id="checkBox" disabled>
-            <span class="slider round"></span>
+      <div>
+        <h2>Add new book</h2>
+        <form>
+          <label class="labels">
+            <input type="text" class="title">
           </label>
-        </label>
-      </form>
-      <div class="buttons">
-        <input type="button" value="Add" class="btnAdd">
-        <input type="button" value="Cancel" class="btnCancel">
+          <label class="labels labelAuthor">
+            <input type="text" class="author">
+          </label>
+          <label class="labels labelTotalPages">
+            <input type="text" class="totalPages">
+          </label>
+          <label class="labels labelCompletedPages">
+            <input type="text" class="completedPages">
+            <label class="switch">
+              <input type="checkbox" class="addCheckBox" disabled>
+              <span class="slider round"></span>
+            </label>
+          </label>
+        </form>
+        <div class="buttons">
+          <input type="button" value="Add" class="btnAdd">
+          <input type="button" value="Cancel" class="btnCancelAdd">
+        </div>
       </div>
     </div>
 
     <div class="blockEditBook">
-      <h2>Edit book</h2>
-      <form>
-        <label class="labels">
-          <input type="text" class="title editTitle">
-        </label>
-        <label class="labels labelAuthor">
-          <input type="text" class="author editAuthor">
-        </label>
-        <label class="labels labelTotalPages">
-          <input type="text" class="totalPages editTotalPages">
-        </label>
-        <label class="labels labelCompletedPages">
-          <input type="text" class="completedPages editCompletedPages">
-          <label class="switch">
-            <input type="checkbox" id="checkBox" disabled>
-            <span class="slider round"></span>
+      <div>
+        <h2>Edit book</h2>
+        <form>
+          <label class="labels">
+            <input type="text" class="title editTitle">
           </label>
-        </label>
-      </form>
-      <div class="buttons">
-        <input type="button" value="Edit" class="btnEdit">
-        <input type="button" value="Cancel" class="btnCancel">
+          <label class="labels labelAuthor">
+            <input type="text" class="author editAuthor">
+          </label>
+          <label class="labels labelTotalPages">
+            <input type="text" class="totalPages editTotalPages">
+          </label>
+          <label class="labels labelCompletedPages">
+            <input type="text" class="completedPages editCompletedPages">
+            <label class="switch">
+              <input type="checkbox" class="editCheckBox" disabled>
+              <span class="slider round"></span>
+            </label>
+          </label>
+        </form>
+        <div class="buttons">
+          <input type="button" value="Edit" class="btnEdit">
+          <input type="button" value="Cancel" class="btnCancelEdit">
+        </div>
       </div>
     </div>
 

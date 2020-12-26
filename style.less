@@ -44,29 +44,6 @@ body {
   font-size: 1.5em;
 }
 
-/* .choice {
-  .size(100%, 80%);
-  background: rgba(0, 0, 255, 0.658);
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-} */
-
-/* .choice > * {
-  .size(100%, auto);
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#cloud, #local {
-  .size(20vmin, 20vmin);
-  border: solid red 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-} */
-
 #field {
   display: flex;
   .size(100%, 100%);
@@ -132,6 +109,10 @@ header {
   .size(40vmin, 50vmin);
   display: flex;
   flex-direction: column;
+}
+
+.showMenu {
+  border-radius: 3vmin;
 }
 
 #newBook .showMenu:hover {
@@ -218,8 +199,14 @@ table .value {
 
 .blockNewBook,
 .blockEditBook {
-  margin: auto;
+  .size(100%, 100%);
+  background: hsla(358, 85%, 52%, 0.6);
   display: none;
+}
+
+.blockNewBook > div,
+.blockEditBook > div {
+  margin: auto;
   z-index: 2;
   grid-row-start: 2;
   grid-row-end: -2;
@@ -227,7 +214,7 @@ table .value {
   grid-column-end: 4;
   .size(75vmin, 75vmin);
   background: hsl(0, 0%, 25%);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .blockNewBook label,
@@ -237,6 +224,9 @@ table .value {
 
 .blockNewBook h2,
 .blockEditBook h2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   .size(auto, 12%);
 }
@@ -251,6 +241,7 @@ table .value {
 }
 
 form {
+  margin: auto;
   .size(80%, 76%);
   display: flex;
   flex-direction: column;
