@@ -19,10 +19,7 @@ const editCompletedPages = document.querySelector('.editCompletedPages');
 const btnAdd = document.querySelector('.btnAdd');
 const btnEdit = document.querySelector('.btnEdit');
 
-
-const btnCancelAdd = document.querySelector('.btnCancelAdd');
-const btnCancelEdit = document.querySelector('.btnCancelEdit');
-
+const btnsCancel = document.querySelectorAll('.btnCancel');
 
 const addCheckBox = document.querySelector('.addCheckBox');
 const editCheckBox = document.querySelector('.editCheckBox');
@@ -116,7 +113,7 @@ btnEdit.addEventListener('mousedown', () => {
   }
 })
 
-inputsArray.forEach((item, id) => {
+/* inputsArray.forEach((item, id) => {
   const labels = item.parentNode;
   item.onfocus = () => {
     labels.classList.remove('moveBottom');
@@ -136,7 +133,22 @@ editInputsArray.forEach((item, id) => {
   item.onblur = () => {
     checkValues(editInputsArray, id);
   }
-});
+}); */
+
+
+inputsArray.forEach((item, id) => checkChanges(item, id, inputsArray));
+editInputsArray.forEach((item, id) => checkChanges(item, id, editInputsArray));
+
+function checkChanges(item, id, array) {
+  const labels = item.parentNode;
+  item.onfocus = () => {
+    labels.classList.remove('moveBottom');
+    labels.classList.add('moveTop');
+  }
+  item.onblur = () => {
+    checkValues(array, id);
+  }
+}
 
 inputsArray.forEach((item, id) => {
   item.addEventListener('input', (e) => checkValues(inputsArray, id, e));
@@ -147,8 +159,6 @@ editInputsArray.forEach((item, id) => {
     checkValues(editInputsArray, id, e)
   });
 })
-
-
 
 function checkValues(array, id, e) {
   const label = array[id].parentNode;
@@ -173,7 +183,7 @@ function checkValues(array, id, e) {
     return authorLength;
   } else if(id == 2) {
     let totalNumber = array[id].value > 0 && array[id].value <= 9999999;
-    
+    setMoveClasses(totalNumber, array, id);
     if(+array[id].value < +array[3].value) {
       setMoveClasses(false, array, 3);
     }
@@ -222,12 +232,10 @@ function setBookStatus(total, completed) {
   return !(total - completed);
 }
 
-btnCancelAdd.addEventListener('mousedown', (e) => {
-  e.target.parentNode.parentNode.parentNode.classList.remove('active');
-})
-
-btnCancelEdit.addEventListener('mousedown', (e) => {
-  e.target.parentNode.parentNode.parentNode.classList.remove('active');
+btnsCancel.forEach(item => {
+  item.addEventListener('mousedown', (e) => {
+    e.target.parentNode.parentNode.parentNode.classList.remove('active');
+  })
 })
 
 addCheckBox.addEventListener('change', () => {
