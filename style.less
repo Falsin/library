@@ -463,39 +463,27 @@ input:checked + .slider:before {
   justify-content: center;
 }
 
-@keyframes moveTop {
-  0% {
-    bottom: 0;
-    color: white;
-  }
-  100% {
-    bottom: 4vmin;
-    color: hsl(201, 70%, 55%);
-  }
+.labels::before { 
+  .size(95%, auto);
 }
 
-@keyframes moveBottom {
-  0% {
-    bottom: 4vmin;
-    color: hsl(201, 70%, 55%);
-  }
-  100% {
-    bottom: 0;
-    color: white;
-  }
+.labels.labelTotalPages:before,
+.labels.labelCompletedPages:before {
+  .size(160%, auto);
 }
 
 .labels {
   position: relative;
   &:before {
-    .size(95%, auto);
     bottom: 0;
     left: 1vmin;
     position: absolute;
     display: block;
     content: "Title";
     color: white;
-    font-size: 1em;}
+    font-size: 1em;
+    transition: 1.2s;
+  }
 
   &.labelAuthor:before {
     content: "Author";
@@ -507,17 +495,6 @@ input:checked + .slider:before {
 
   &.labelCompletedPages:before {
     content: "Completed pages";
-  }
-
-  &.moveTop:before {
-    animation-name: moveTop;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-  }
-  &.moveBottom:before {
-    animation-name: moveBottom;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
   }
 
   & input {
@@ -561,11 +538,18 @@ input:checked + .slider:before {
 
   &.invalidValue.labelTotalPages:before {
     content: "Total pages number should be more than 0 and less than 9999999";
-    .size(160%, auto);
   }
 
   &.invalidValue.labelCompletedPages:before {
     content: "Completed pages number should be less than total pages number";
-    .size(160%, auto);
   }
+
+  &.moveTop:before {
+    color: hsl(201, 70%, 55%);
+    bottom: 4vmin;
+  }
+}
+
+.slider{
+  border: solid red 1px;
 }

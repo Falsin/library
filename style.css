@@ -427,32 +427,19 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
 }
-@keyframes moveTop {
-  0% {
-    bottom: 0;
-    color: white;
-  }
-  100% {
-    bottom: 4vmin;
-    color: hsl(201, 70%, 55%);
-  }
+.labels::before {
+  width: 95%;
+  height: auto;
 }
-@keyframes moveBottom {
-  0% {
-    bottom: 4vmin;
-    color: hsl(201, 70%, 55%);
-  }
-  100% {
-    bottom: 0;
-    color: white;
-  }
+.labels.labelTotalPages:before,
+.labels.labelCompletedPages:before {
+  width: 160%;
+  height: auto;
 }
 .labels {
   position: relative;
 }
 .labels:before {
-  width: 95%;
-  height: auto;
   bottom: 0;
   left: 1vmin;
   position: absolute;
@@ -460,6 +447,7 @@ input:checked + .slider:before {
   content: "Title";
   color: white;
   font-size: 1em;
+  transition: 1.2s;
 }
 .labels.labelAuthor:before {
   content: "Author";
@@ -469,16 +457,6 @@ input:checked + .slider:before {
 }
 .labels.labelCompletedPages:before {
   content: "Completed pages";
-}
-.labels.moveTop:before {
-  animation-name: moveTop;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-.labels.moveBottom:before {
-  animation-name: moveBottom;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
 }
 .labels input {
   background: none;
@@ -515,11 +493,14 @@ input:checked + .slider:before {
 }
 .labels.invalidValue.labelTotalPages:before {
   content: "Total pages number should be more than 0 and less than 9999999";
-  width: 160%;
-  height: auto;
 }
 .labels.invalidValue.labelCompletedPages:before {
   content: "Completed pages number should be less than total pages number";
-  width: 160%;
-  height: auto;
+}
+.labels.moveTop:before {
+  color: hsl(201, 70%, 55%);
+  bottom: 4vmin;
+}
+.slider {
+  border: solid red 1px;
 }

@@ -33,8 +33,11 @@ const btnNo = document.getElementById('no');
 const btnYes = document.getElementById('yes');
 
 const labels = document.querySelectorAll('.labels');
-const inputsArray = [title, author, totalPages, completedPages]
-const editInputsArray = [editTitle, editAuthor, editTotalPages, editCompletedPages]
+
+
+
+const inputsArray = blockNewBook.querySelectorAll(`[type='text']`);
+const editInputsArray = blockEditBook.querySelectorAll(`[type='text']`);
 
 myLibrary = [];
 
@@ -63,11 +66,11 @@ btnAdd.addEventListener('mousedown', () => {
     addTableValues();
     for(let i = 0; i < inputsArray.length; i++) {
       labels[i].classList.remove('moveTop');
-      labels[i].classList.add('moveBottom');
       labels[i].classList.remove('validValue');
     }
   }
 })
+
 
 btnEdit.addEventListener('mousedown', () => {
   let isValid = true;
@@ -113,36 +116,12 @@ btnEdit.addEventListener('mousedown', () => {
   }
 })
 
-/* inputsArray.forEach((item, id) => {
-  const labels = item.parentNode;
-  item.onfocus = () => {
-    labels.classList.remove('moveBottom');
-    labels.classList.add('moveTop');
-  }
-  item.onblur = () => {
-    checkValues(inputsArray, id);
-  }
-});
-
-editInputsArray.forEach((item, id) => {
-  const labels = item.parentNode;
-  item.onfocus = () => {
-    labels.classList.remove('moveBottom');
-    labels.classList.add('moveTop');
-  }
-  item.onblur = () => {
-    checkValues(editInputsArray, id);
-  }
-}); */
-
-
 inputsArray.forEach((item, id) => checkChanges(item, id, inputsArray));
 editInputsArray.forEach((item, id) => checkChanges(item, id, editInputsArray));
 
 function checkChanges(item, id, array) {
   const labels = item.parentNode;
   item.onfocus = () => {
-    labels.classList.remove('moveBottom');
     labels.classList.add('moveTop');
   }
   item.onblur = () => {
@@ -161,72 +140,71 @@ editInputsArray.forEach((item, id) => {
 })
 
 function checkValues(array, id, e) {
-  const label = array[id].parentNode;
-  if(label.classList.contains('invalidValue') && array[id].value.length == 0) {
-    label.classList.add('moveBottom');
-    return;
-  } else if(array[id].value.length == 0 && !e) {
-    label.classList.remove('moveTop');
-    label.classList.remove('invalidValue');
-    label.classList.remove('validValue');
-    label.classList.add('moveBottom');
-    return;
-  }
-
-  if(id == 0) {
-    let titleLength = array[id].value.length > 0 && array[id].value.length < 40;
-    setMoveClasses(titleLength, array, id);
-    return titleLength;
-  } else if(id == 1) {
-    let authorLength = array[id].value.length > 0 && array[id].value.length < 40;
-    setMoveClasses(authorLength, array, id);
-    return authorLength;
-  } else if(id == 2) {
-    let totalNumber = array[id].value > 0 && array[id].value <= 9999999;
-    setMoveClasses(totalNumber, array, id);
-    if(+array[id].value < +array[3].value) {
-      setMoveClasses(false, array, 3);
-    }
-    return totalNumber;
-  } else if(id == 3) {
-    let completedNumber = +array[id].value >= 0 && +array[id].value <= +array[2].value && 
-                          +array[id].value <= 9999999;
-    setMoveClasses(completedNumber, array, id);
-    return completedNumber;
-  }
-}
-
-function setMoveClasses(item, array, id) {
   const mainBlock = array[id].parentNode.parentNode.parentNode;
   const checkBox = mainBlock.querySelector(`[type='checkbox']`);
-  const completedPages = mainBlock.querySelector(`.completedPages`);
-  const totalPages = mainBlock.querySelector(`.totalPages`);
-
-  if(item) {
-    array[id].parentNode.classList.remove('invalidValue');
-    array[id].parentNode.classList.add('validValue');
-    array[id].parentNode.classList.add('moveTop');
-    array[id].parentNode.classList.remove('moveBottom');
-
-    if(id == 2) {
-      checkBox.removeAttribute('disabled', 'disabled');
-    } else if(id == 3 && totalPages.value == completedPages.value || completedPages.length == 0) {
-      checkBox.checked = true;
-      checkBox.setAttribute('disabled', 'disabled');
-    } else if(id == 3 && totalPages.value !== completedPages.value || completedPages.value > 0) {
-      checkBox.checked = false;
-      checkBox.removeAttribute('disabled', 'disabled');
+  const label = array[id].parentNode;
+  const inputValue = array[id].value;
+  if(!e) {
+    if(!+inputValue.length) {
+      label.classList.remove('moveTop');
+    } else {
+      label.classList.add('moveTop');
+      label.classList.remove('invalidValue');
+      label.classList.add('validValue');
     }
 
   } else {
-    array[id].parentNode.classList.remove('validValue');
-    array[id].parentNode.classList.add('invalidValue');
-    if(id == 2 || id == 3) {
-      checkBox.checked = false;
-      checkBox.setAttribute('disabled', 'disabled');
+    if(!+inputValue.length) {
+      label.classList.add('invalidValue');
+
+      if(id == 2) {
+        array[3].parentNode.classList.remove('validValue');
+        array[3].parentNode.classList.add('invalidValue');
+      }
+    } else if((id == 0 || id == 1) && inputValue.length < 40) {
+      label.classList.remove('invalidValue');
+      label.classList.add('validValue');
+    } else if(id == 2 && inputValue < 9999999 && inputValue > 0) {
+      label.classList.remove('invalidValue');
+      label.classList.add('validValue');
+
+      if(array[3].value > inputValue) {
+        array[3].parentNode.classList.remove('validValue');
+        array[3].parentNode.classList.add('invalidValue');
+      } else if(inputValue >= array[3].value && array[3].value > 0){
+        array[3].parentNode.classList.remove('invalidValue');
+        array[3].parentNode.classList.add('validValue');
+      }
+
+      if(inputValue == array[3].value) {
+        checkBox.checked = true;
+      } else {
+        checkBox.checked = false;
+      }
+      
+
+    } else if(id == 3) {
+      if(inputValue <= array[2].value) {
+        label.classList.remove('invalidValue');
+        label.classList.add('validValue');
+      } else {
+        label.classList.remove('validValue');
+        label.classList.add('invalidValue');
+      }
+
+      if(inputValue == array[2].value && array[2].value > 0) {
+        checkBox.checked = true;
+      } else {
+        checkBox.checked = false;
+      }
+
+    } else {
+      label.classList.remove('validValue');
+      label.classList.add('invalidValue');
     }
   }
 }
+
 
 function setBookStatus(total, completed) {
   return !(total - completed);
@@ -239,10 +217,20 @@ btnsCancel.forEach(item => {
 })
 
 addCheckBox.addEventListener('change', () => {
+  if(!+inputsArray[2].value.length || !+inputsArray[2].value) {
+    addCheckBox.checked = false;
+  } else if(inputsArray[2].value == inputsArray[3].value) {
+    addCheckBox.checked = true;
+  }
   changeReadingStatus(addCheckBox, inputsArray);
 });
 
 editCheckBox.addEventListener('change', () => {
+  if(!+editInputsArray[2].value.length || !+editInputsArray[2].value) {
+    editCheckBox.checked = false;
+  } else if(editInputsArray[2].value == editInputsArray[3].value) {
+    editCheckBox.checked = true;
+  }
   changeReadingStatus(editCheckBox, editInputsArray);
 });
 
@@ -254,7 +242,7 @@ function changeReadingStatus(item, array) {
   if(item.checked) {
     completedPages.value = totalPages.value;
     checkValues(array, 3);
-    item.setAttribute('disabled', 'disabled');
+    /* item.setAttribute('disabled', 'disabled'); */
   }
 }
 
