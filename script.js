@@ -144,6 +144,8 @@ function checkValues(array, id, e) {
   const checkBox = mainBlock.querySelector(`[type='checkbox']`);
   const label = array[id].parentNode;
   const inputValue = array[id].value;
+  
+
   if(!e) {
     if(!+inputValue.length) {
       label.classList.remove('moveTop');
@@ -151,58 +153,68 @@ function checkValues(array, id, e) {
       label.classList.add('moveTop');
       label.classList.remove('invalidValue');
       label.classList.add('validValue');
+      if(id == 3 && inputValue == array[2].value) {
+        checkBox.checked = true;
+      }
     }
-
   } else {
     if(!+inputValue.length) {
-      label.classList.add('invalidValue');
-
-      if(id == 2) {
-        array[3].parentNode.classList.remove('validValue');
-        array[3].parentNode.classList.add('invalidValue');
-      }
+      emptyInput(label, id, array);
     } else if((id == 0 || id == 1) && inputValue.length < 40) {
       label.classList.remove('invalidValue');
       label.classList.add('validValue');
     } else if(id == 2 && inputValue < 9999999 && inputValue > 0) {
-      label.classList.remove('invalidValue');
-      label.classList.add('validValue');
-
-      if(array[3].value > inputValue) {
-        array[3].parentNode.classList.remove('validValue');
-        array[3].parentNode.classList.add('invalidValue');
-      } else if(inputValue >= array[3].value && array[3].value > 0){
-        array[3].parentNode.classList.remove('invalidValue');
-        array[3].parentNode.classList.add('validValue');
-      }
-
-      if(inputValue == array[3].value) {
-        checkBox.checked = true;
-      } else {
-        checkBox.checked = false;
-      }
-      
-
+      validSecondInput(label, array, inputValue, checkBox);
     } else if(id == 3) {
-      if(inputValue <= array[2].value) {
-        label.classList.remove('invalidValue');
-        label.classList.add('validValue');
-      } else {
-        label.classList.remove('validValue');
-        label.classList.add('invalidValue');
-      }
-
-      if(inputValue == array[2].value && array[2].value > 0) {
-        checkBox.checked = true;
-      } else {
-        checkBox.checked = false;
-      }
-
+      validThirdInput(label, array, inputValue, checkBox);
     } else {
       label.classList.remove('validValue');
       label.classList.add('invalidValue');
     }
   }
+}
+
+function emptyInput(label, id, array) {
+  label.classList.add('invalidValue');
+  if(id == 2) {
+    array[3].parentNode.classList.remove('validValue');
+    array[3].parentNode.classList.add('invalidValue');
+  }
+}
+
+function validSecondInput(label, array, inputValue, checkBox) {
+  label.classList.remove('invalidValue');
+  label.classList.add('validValue');
+
+  if(array[3].value > inputValue) {
+    array[3].parentNode.classList.remove('validValue');
+    array[3].parentNode.classList.add('invalidValue');
+  } else if(inputValue >= array[3].value && array[3].value > 0){
+    array[3].parentNode.classList.remove('invalidValue');
+    array[3].parentNode.classList.add('validValue');
+  }
+
+  if(inputValue == array[3].value) {
+    checkBox.checked = true;
+  } else {
+    checkBox.checked = false;
+  }  
+}
+
+function validThirdInput(label, array, inputValue, checkBox) {
+  if(inputValue <= array[2].value) {
+    label.classList.remove('invalidValue');
+    label.classList.add('validValue');
+  } else {
+    label.classList.remove('validValue');
+    label.classList.add('invalidValue');
+  }
+
+  if(inputValue == array[2].value && array[2].value > 0) {
+    checkBox.checked = true;
+  } else {
+    checkBox.checked = false;
+  }  
 }
 
 
