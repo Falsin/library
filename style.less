@@ -17,6 +17,7 @@ html {
 #bookList {
   -ms-overflow-style: none;  /* IE 10+ */
   scrollbar-width: none; /* Firefox */
+  background: rgba(234, 0, 255, 0.336);
 }
 
 body {
@@ -25,13 +26,6 @@ body {
   position: relative;
   font-family: Helvetica, sans-serif;
   font-weight: 500;
-}
-
-#typeRecordingDevice {
-  .size(70vmin, 70vmin);
-  background: black;
-  color: white;
-  margin: auto;
 }
 
 .heading {
@@ -47,7 +41,6 @@ body {
 #field {
   display: flex;
   .size(100%, 100%);
-  background: hsl(0, 0%, 15%);
 }
 
 #container {
@@ -70,6 +63,7 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
+  background: hsl(0, 0%, 7%);
 }
 
 #account {
@@ -89,7 +83,6 @@ header {
   grid-column-start: 1;
   grid-column-end: 2;
   .size(100%, 100%);
-  background: hsla(278, 100%, 50%, 0.459);
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
@@ -98,7 +91,7 @@ header {
 #bookList .showMenu {
   .size(50%, 50%);
   transition: 1.5s;
-  background: orange;
+  background: hsl(0, 0%, 20%);
   position: relative;
   cursor: pointer;
 }
@@ -113,6 +106,7 @@ header {
 
 .showMenu {
   border-radius: 3vmin;
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 
 #newBook .showMenu:hover {
@@ -131,7 +125,7 @@ header {
   transform: translate(-50%, -50%);
   content: '';
   .size(1.4vmin, 8.5vmin);
-  background: red;
+  background: hsl(151, 96%, 22%);
   transition: 1.5s;
   transform-origin: center;
 }
@@ -154,7 +148,7 @@ header {
   transform: translate(-50%, -50%);
   content: '';
   .size(8.5vmin, 1.4vmin);
-  background: red;
+  background: hsl(151, 96%, 22%);
   transition: 1.5s;
 }
 
@@ -166,7 +160,8 @@ header {
   grid-column-start: 2;
   grid-column-end: -1;
   .size(100%, 100%);
-  background: red;
+  background: hsl(0, 0%, 20%);
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -180,12 +175,7 @@ header {
 }
 
 table {
-  border: solid black 1px;
   .size(80%, auto);
-}
-
-table td {
-  border: solid green 1px;
 }
 
 table .key {
@@ -200,7 +190,7 @@ table .value {
 .blockNewBook,
 .blockEditBook {
   .size(100%, 100%);
-  background: hsla(358, 85%, 52%, 0.6);
+  /* background: hsla(358, 85%, 52%, 0.6); */
   display: none;
 }
 
@@ -339,12 +329,21 @@ input:checked + .slider:before {
   flex-direction: column;
 }
 
-::-webkit-scrollbar { 
-  display: none; 
+.edit {
+  border-top-left-radius: 3vmin;
 }
 
-.editRemove {
-  background: green;
+.remove {
+  border-top-right-radius: 3vmin;
+}
+
+.progressDisplay {
+  border-bottom-left-radius: 3vmin;
+  border-bottom-right-radius: 3vmin;
+}
+
+::-webkit-scrollbar { 
+  display: none; 
 }
 
 .bookInfo {
@@ -366,7 +365,7 @@ input:checked + .slider:before {
   right: 0;
 }
 
-.edit {
+.edit, .remove {
   background: brown;
 }
 
@@ -552,4 +551,16 @@ input:checked + .slider:before {
 
 .slider{
   border: solid red 1px;
+}
+
+@media screen and (max-width: 950px){
+  #information {
+    display: none;
+  }
+  #bookList {
+    grid-row-start: 2;
+    grid-row-end: -1;
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
 }

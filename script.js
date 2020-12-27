@@ -15,10 +15,8 @@ const editAuthor = document.querySelector('.editAuthor');
 const editTotalPages = document.querySelector('.editTotalPages');
 const editCompletedPages = document.querySelector('.editCompletedPages');
 
-
 const btnAdd = document.querySelector('.btnAdd');
 const btnEdit = document.querySelector('.btnEdit');
-
 const btnsCancel = document.querySelectorAll('.btnCancel');
 
 const addCheckBox = document.querySelector('.addCheckBox');
@@ -33,8 +31,6 @@ const btnNo = document.getElementById('no');
 const btnYes = document.getElementById('yes');
 
 const labels = document.querySelectorAll('.labels');
-
-
 
 const inputsArray = blockNewBook.querySelectorAll(`[type='text']`);
 const editInputsArray = blockEditBook.querySelectorAll(`[type='text']`);
@@ -254,7 +250,6 @@ function changeReadingStatus(item, array) {
   if(item.checked) {
     completedPages.value = totalPages.value;
     checkValues(array, 3);
-    /* item.setAttribute('disabled', 'disabled'); */
   }
 }
 
@@ -376,7 +371,7 @@ function setControlArea(elem) {
     popUp(blockEditBook, elemId);
   });
 
-  let remove = addElement('button', divControl, 'edit', '50%', '100%');
+  let remove = addElement('button', divControl, 'remove', '50%', '100%');
   remove.textContent = 'Remove';
   remove.addEventListener('mousedown', () => {
     removeCard(elem);

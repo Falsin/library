@@ -14,6 +14,7 @@ html {
   /* IE 10+ */
   scrollbar-width: none;
   /* Firefox */
+  background: rgba(234, 0, 255, 0.336);
 }
 body {
   width: 100vw;
@@ -22,13 +23,6 @@ body {
   position: relative;
   font-family: Helvetica, sans-serif;
   font-weight: 500;
-}
-#typeRecordingDevice {
-  width: 70vmin;
-  height: 70vmin;
-  background: black;
-  color: white;
-  margin: auto;
 }
 .heading {
   width: 100%;
@@ -44,7 +38,6 @@ body {
   display: flex;
   width: 100%;
   height: 100%;
-  background: hsl(0, 0%, 15%);
 }
 #container {
   position: fixed;
@@ -67,6 +60,7 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
+  background: hsl(0, 0%, 7%);
 }
 #account {
   top: 1vmin;
@@ -84,7 +78,6 @@ header {
   grid-column-end: 2;
   width: 100%;
   height: 100%;
-  background: hsla(278, 100%, 50%, 0.459);
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
@@ -93,7 +86,7 @@ header {
   width: 50%;
   height: 50%;
   transition: 1.5s;
-  background: orange;
+  background: hsl(0, 0%, 20%);
   position: relative;
   cursor: pointer;
 }
@@ -107,6 +100,7 @@ header {
 }
 .showMenu {
   border-radius: 3vmin;
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 #newBook .showMenu:hover {
   width: 100%;
@@ -124,7 +118,7 @@ header {
   content: '';
   width: 1.4vmin;
   height: 8.5vmin;
-  background: red;
+  background: hsl(151, 96%, 22%);
   transition: 1.5s;
   transform-origin: center;
 }
@@ -147,7 +141,7 @@ header {
   content: '';
   width: 8.5vmin;
   height: 1.4vmin;
-  background: red;
+  background: hsl(151, 96%, 22%);
   transition: 1.5s;
 }
 #information {
@@ -159,7 +153,8 @@ header {
   grid-column-end: -1;
   width: 100%;
   height: 100%;
-  background: red;
+  background: hsl(0, 0%, 20%);
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,12 +166,8 @@ header {
   text-decoration: none;
 }
 table {
-  border: solid black 1px;
   width: 80%;
   height: auto;
-}
-table td {
-  border: solid green 1px;
 }
 table .key {
   width: 70%;
@@ -191,7 +182,7 @@ table .value {
 .blockEditBook {
   width: 100%;
   height: 100%;
-  background: hsla(358, 85%, 52%, 0.6);
+  /* background: hsla(358, 85%, 52%, 0.6); */
   display: none;
 }
 .blockNewBook > div,
@@ -319,11 +310,18 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
 }
+.edit {
+  border-top-left-radius: 3vmin;
+}
+.remove {
+  border-top-right-radius: 3vmin;
+}
+.progressDisplay {
+  border-bottom-left-radius: 3vmin;
+  border-bottom-right-radius: 3vmin;
+}
 ::-webkit-scrollbar {
   display: none;
-}
-.editRemove {
-  background: green;
 }
 .bookInfo {
   background: blue;
@@ -341,7 +339,8 @@ input:checked + .slider:before {
   bottom: 0;
   right: 0;
 }
-.edit {
+.edit,
+.remove {
   background: brown;
 }
 .countingPages {
@@ -503,4 +502,15 @@ input:checked + .slider:before {
 }
 .slider {
   border: solid red 1px;
+}
+@media screen and (max-width: 950px) {
+  #information {
+    display: none;
+  }
+  #bookList {
+    grid-row-start: 2;
+    grid-row-end: -1;
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
 }
