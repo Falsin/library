@@ -81,11 +81,12 @@ header {
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
+  /* justify-content: space-evenly; */
 }
 #bookList .showMenu {
   width: 50%;
   height: 50%;
-  transition: 1.5s;
+  /* transition: 1.5s; */
   background: hsl(0, 0%, 20%);
   position: relative;
   cursor: pointer;
@@ -97,6 +98,7 @@ header {
   height: 50vmin;
   display: flex;
   flex-direction: column;
+  /*   transition: 1.5s; */
 }
 .showMenu {
   border-radius: 3vmin;
@@ -119,7 +121,7 @@ header {
   width: 1.4vmin;
   height: 8.5vmin;
   background: hsl(151, 96%, 22%);
-  transition: 1.5s;
+  /* transition: 1.5s; */
   transform-origin: center;
 }
 #newBook .showMenu:hover:before {
@@ -142,7 +144,7 @@ header {
   width: 8.5vmin;
   height: 1.4vmin;
   background: hsl(151, 96%, 22%);
-  transition: 1.5s;
+  /*   transition: 1.5s; */
 }
 #information {
   padding: 1vmin;

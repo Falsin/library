@@ -263,7 +263,7 @@ btnNo.addEventListener('mousedown', () => {
 
 btnYes.addEventListener('mousedown', removeLocalDate);
 
-window.onload = () => {
+/* window.onload = () => {
   let storage = storageAvailable('localStorage');
 
   let margin = countDivMargins(newBook);
@@ -289,7 +289,7 @@ window.onload = () => {
 
   addBookToDisplay(myLibrary);
   addTableValues()
-}
+} */
 
 function popUp(...array) {
   array[0].classList.add('active');
@@ -339,19 +339,36 @@ function addBookToDisplay(array) {
 
 function settingElement(elem) {
   elem.classList.add('bookCard');
+  const elemWidth = elem.clientWidth;
   newBook.after(elem);
   let margin = countDivMargins(elem);
   elem.style.marginRight = `${margin}px`;
-  elem.style.marginBottom = `${margin}px`;
+  elem.style.marginBottom = `${elemWidth / 4}px`;
 }
 
 function countDivMargins(div) {
+  const windowWidth = document.documentElement.clientWidth;
   const bookListWidth = bookList.clientWidth;
   const divWidth = div.clientWidth;
-  let numberDivs = Math.floor(bookListWidth / divWidth);
-  let commonWidth = divWidth * numberDivs;
-  let commonMargin = bookListWidth - commonWidth;
-  return Math.floor(commonMargin / (numberDivs + 1));
+  let currentMargin = 0;
+  let numberDivs = 0;
+  let i = 0
+  
+  if(windowWidth >= 680) {
+    while(currentMargin <= 40) {
+      let numberDivs = Math.floor(bookListWidth / divWidth) - i;
+      let commonWidth = divWidth * numberDivs;
+      let commonMargin = bookListWidth - commonWidth;
+      currentMargin = Math.floor(commonMargin / (numberDivs + 1));
+      i++;
+    }
+  } else {
+    let numberDivs = 1;
+    let commonWidth = divWidth * numberDivs;
+    let commonMargin = bookListWidth - commonWidth;
+    currentMargin = Math.floor(commonMargin / (numberDivs + 1));
+  }
+  return currentMargin;
 }
 
 function addInfoInCard(elem) {
@@ -549,4 +566,55 @@ function saveChanges() {
     localStorage.setItem(`${[i]}.completedPages`, `${myLibrary[i].completedPages}`)
     localStorage.setItem(`${[i]}.isRead`, `${myLibrary[i].isRead}`)
   }
+}
+
+window.addEventListener('resize', () => {
+
+  const arrBookCards = document.querySelectorAll('.bookCard');
+  const div = document.getElementById('newBook');
+  const divWidth = div.clientWidth;
+
+
+
+  let margin = countDivMargins(newBook);
+  bookList.style.paddingLeft = `${margin}px`;
+  bookList.style.paddingTop = `${divWidth / 10}px`;
+  newBook.style.marginBottom = `${divWidth / 4}px`;
+  newBook.style.marginRight = `${margin}px`;
+
+  for(let i = 0; i < arrBookCards.length; i++) {
+    arrBookCards[i].style.marginBottom = `${margin / 4}px`;
+    arrBookCards[i].style.marginRight = `${margin}px`;
+  }
+}) 
+
+window.onload = () => {
+  let storage = storageAvailable('localStorage');
+  const div = document.getElementById('newBook');
+  const divWidth = div.clientWidth;
+
+  let margin = countDivMargins(newBook);
+  bookList.style.paddingLeft = `${margin}px`;
+  bookList.style.paddingTop = `${divWidth / 10}px`;
+  newBook.style.marginBottom = `${divWidth / 4}px`;
+  newBook.style.marginRight = `${margin}px`;
+
+  let i = 0;
+  let statement = localStorage.getItem(`${[i]}.title`);
+  if(storage) {
+    while(statement !== null) {
+      let title = localStorage.getItem(`${[i]}.title`);
+      let author = localStorage.getItem(`${[i]}.author`);
+      let totalPages = localStorage.getItem(`${[i]}.totalPages`);
+      let completedPages = localStorage.getItem(`${[i]}.completedPages`);
+      let isRead = localStorage.getItem(`${[i]}.isRead`);
+      myLibrary.push(new Book(title, author, totalPages, completedPages, isRead));
+      ++i;
+      statement = localStorage.getItem(`${[i]}.title`);
+    }
+  }
+
+
+  addBookToDisplay(myLibrary);
+  addTableValues()
 }
