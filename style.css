@@ -86,7 +86,7 @@ header {
 #bookList .showMenu {
   width: 50%;
   height: 50%;
-  /* transition: 1.5s; */
+  transition: 1.2s;
   background: hsl(0, 0%, 20%);
   position: relative;
   cursor: pointer;
@@ -121,7 +121,7 @@ header {
   width: 1.4vmin;
   height: 8.5vmin;
   background: hsl(151, 96%, 22%);
-  /* transition: 1.5s; */
+  transition: 1.2s;
   transform-origin: center;
 }
 #newBook .showMenu:hover:before {
@@ -144,7 +144,7 @@ header {
   width: 8.5vmin;
   height: 1.4vmin;
   background: hsl(151, 96%, 22%);
-  /*   transition: 1.5s; */
+  transition: 1.2s;
 }
 #information {
   padding: 1vmin;
@@ -311,6 +311,7 @@ input:checked + .slider:before {
   height: 50vmin;
   display: flex;
   flex-direction: column;
+  transition: 1.2s;
 }
 .edit {
   border-top-left-radius: 3vmin;
@@ -514,5 +515,19 @@ input:checked + .slider:before {
     grid-row-end: -1;
     grid-column-start: 1;
     grid-column-end: -1;
+  }
+}
+@media screen and (max-width: 600px) {
+  .bookCard,
+  #newBook {
+    width: 45vmin;
+    height: 55vmin;
+  }
+}
+@media screen and (max-width: 570px) {
+  .bookCard,
+  #newBook {
+    width: 55vmin;
+    height: 66vmin;
   }
 }

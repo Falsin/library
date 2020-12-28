@@ -91,7 +91,7 @@ header {
 
 #bookList .showMenu {
   .size(50%, 50%);
-  /* transition: 1.5s; */
+  transition: 1.2s;
   background: hsl(0, 0%, 20%);
   position: relative;
   cursor: pointer;
@@ -128,7 +128,7 @@ header {
   content: '';
   .size(1.4vmin, 8.5vmin);
   background: hsl(151, 96%, 22%);
-  /* transition: 1.5s; */
+  transition: 1.2s;
   transform-origin: center;
 }
 
@@ -151,7 +151,7 @@ header {
   content: '';
   .size(8.5vmin, 1.4vmin);
   background: hsl(151, 96%, 22%);
-/*   transition: 1.5s; */
+  transition: 1.2s;
 }
 
 #information {
@@ -329,6 +329,7 @@ input:checked + .slider:before {
   .size(40vmin, 50vmin);
   display: flex;
   flex-direction: column;
+  transition: 1.2s;
 }
 
 .edit {
@@ -564,5 +565,17 @@ input:checked + .slider:before {
     grid-row-end: -1;
     grid-column-start: 1;
     grid-column-end: -1;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .bookCard, #newBook {
+    .size(45vmin, 55vmin);
+  }
+}
+
+@media screen and (max-width: 570px){
+  .bookCard, #newBook {
+    .size(55vmin, 66vmin);
   }
 }

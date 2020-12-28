@@ -339,22 +339,53 @@ function addBookToDisplay(array) {
 
 function settingElement(elem) {
   elem.classList.add('bookCard');
-  const elemWidth = elem.clientWidth;
   newBook.after(elem);
+  const elemWidth = elem.clientWidth;
   let margin = countDivMargins(elem);
   elem.style.marginRight = `${margin}px`;
   elem.style.marginBottom = `${elemWidth / 4}px`;
 }
-
+/* 
 function countDivMargins(div) {
+  div.style.marginRight = '0px';
   const windowWidth = document.documentElement.clientWidth;
   const bookListWidth = bookList.clientWidth;
   const divWidth = div.clientWidth;
+  const divHeight = div.clientHeight;
   let currentMargin = 0;
   let numberDivs = 0;
   let i = 0
   
-  if(windowWidth >= 680) {
+  if(windowWidth >= 650) {
+    while(currentMargin <= 40) {
+      let numberDivs = Math.floor(bookListWidth / divWidth) - i;
+      let commonWidth = divWidth * numberDivs;
+      let commonMargin = bookListWidth - commonWidth;
+      currentMargin = Math.floor(commonMargin / (numberDivs + 1));
+      i++;
+    }
+  } else {
+    let numberDivs = 1;
+    let commonWidth = divWidth * numberDivs;
+    let commonMargin = bookListWidth - commonWidth;
+    currentMargin = Math.floor(commonMargin / (numberDivs + 1));
+  }
+  return currentMargin;
+} */
+
+function countDivMargins(div) {
+  div.style.marginRight = '0px';
+  const windowWidth = document.documentElement.clientWidth;
+  const windowHeight = document.documentElement.clientHeight;
+  const size = Math.max(windowWidth, windowHeight);
+  const bookListWidth = bookList.clientWidth;
+  const divWidth = div.clientWidth;
+  const divHeight = div.clientHeight;
+  let currentMargin = 0;
+  let numberDivs = 0;
+  let i = 0
+  
+  if(size >= 500) {
     while(currentMargin <= 40) {
       let numberDivs = Math.floor(bookListWidth / divWidth) - i;
       let commonWidth = divWidth * numberDivs;
