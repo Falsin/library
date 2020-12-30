@@ -79,6 +79,7 @@ header {
   /*   overflow: scroll; */
   /* overflow: auto; */
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 #bookList .showMenu {
   width: 50%;
