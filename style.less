@@ -9,14 +9,7 @@
   box-sizing: border-box;
 }
 
-/* html {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-}
- */
 #bookList {
-/*   -ms-overflow-style: none;  
-  scrollbar-width: none; */
   background: rgba(234, 0, 255, 0.336);
   overflow:scroll;
   -webkit-overflow-scrolling: touch;
@@ -68,15 +61,12 @@ header {
   background: hsl(0, 0%, 7%);
 }
 
-#account {
-  top: 1vmin;
-  right: 1vmin;
+.nav {
   position: absolute;
-}
-
-#account input {
-  padding: 4px 8px 4px 8px;
-  font-size: 1em;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 2vmin;
+  display: none;
 }
 
 #bookList {
@@ -87,11 +77,6 @@ header {
   .size(100%, auto);
   display: flex;
   flex-wrap: wrap;
-  border: solid red 1px;
-/*   overflow: scroll; */
-  /* overflow: auto; */
-/*   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; */
 }
 
 #bookList .showMenu {
@@ -108,7 +93,6 @@ header {
   .size(40vmin, 50vmin);
   display: flex;
   flex-direction: column;
-/*   transition: 1.5s; */
 }
 
 .showMenu {
@@ -556,19 +540,22 @@ input:checked + .slider:before {
   }
 }
 
-.slider{
-  border: solid red 1px;
-}
-
 @media screen and (max-width: 950px){
+  #container {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
   #information {
     display: none;
+    z-index: 3;
   }
   #bookList {
     grid-row-start: 2;
     grid-row-end: -1;
     grid-column-start: 1;
     grid-column-end: -1;
+  }
+  .nav {
+    display: block;
   }
 }
 

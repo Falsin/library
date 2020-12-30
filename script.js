@@ -1,4 +1,7 @@
 const field = document.getElementById('field');
+const nav = document.querySelector('.nav');
+
+const infoBlock = document.getElementById('information');
 
 const bookList = document.getElementById('bookList');
 const newBook = document.getElementById('newBook');
@@ -110,6 +113,11 @@ btnEdit.addEventListener('mousedown', () => {
 
     blockEditBook.classList.remove('active');
   }
+})
+
+nav.addEventListener('mousedown', () => {
+  let styleDisplay = infoBlock.style.display;
+  infoBlock.style.display = (styleDisplay == 'flex') ? 'none' : 'flex';
 })
 
 inputsArray.forEach((item, id) => checkChanges(item, id, inputsArray));
@@ -594,7 +602,3 @@ window.onload = () => {
   addBookToDisplay(myLibrary);
   addTableValues()
 }
-
-/* bookList.addEventListener('touchmove', function (){
-  var scrollTop = window.pageYOffset;
-}, false); */
