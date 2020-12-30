@@ -595,6 +595,6 @@ window.onload = () => {
   addTableValues()
 }
 
-bookList.addEventListener('touchmove', function (){
+/* bookList.addEventListener('touchmove', function (){
   var scrollTop = window.pageYOffset;
-}, false);
+}, false); */
