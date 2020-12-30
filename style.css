@@ -76,7 +76,8 @@ header {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+  /*   overflow: scroll; */
+  overflow: auto;
 }
 #bookList .showMenu {
   width: 50%;
