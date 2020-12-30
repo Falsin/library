@@ -263,34 +263,6 @@ btnNo.addEventListener('mousedown', () => {
 
 btnYes.addEventListener('mousedown', removeLocalDate);
 
-/* window.onload = () => {
-  let storage = storageAvailable('localStorage');
-
-  let margin = countDivMargins(newBook);
-  bookList.style.paddingLeft = `${margin}px`;
-  bookList.style.paddingTop = `${margin}px`;
-  newBook.style.marginBottom = `${margin}px`;
-  newBook.style.marginRight = `${margin}px`;
-
-  let i = 0;
-  let statement = localStorage.getItem(`${[i]}.title`);
-  if(storage) {
-    while(statement !== null) {
-      let title = localStorage.getItem(`${[i]}.title`);
-      let author = localStorage.getItem(`${[i]}.author`);
-      let totalPages = localStorage.getItem(`${[i]}.totalPages`);
-      let completedPages = localStorage.getItem(`${[i]}.completedPages`);
-      let isRead = localStorage.getItem(`${[i]}.isRead`);
-      myLibrary.push(new Book(title, author, totalPages, completedPages, isRead));
-      ++i;
-      statement = localStorage.getItem(`${[i]}.title`);
-    }
-  }
-
-  addBookToDisplay(myLibrary);
-  addTableValues()
-} */
-
 function popUp(...array) {
   array[0].classList.add('active');
   if(array[1] !== undefined) {
@@ -345,33 +317,6 @@ function settingElement(elem) {
   elem.style.marginRight = `${margin}px`;
   elem.style.marginBottom = `${elemWidth / 4}px`;
 }
-/* 
-function countDivMargins(div) {
-  div.style.marginRight = '0px';
-  const windowWidth = document.documentElement.clientWidth;
-  const bookListWidth = bookList.clientWidth;
-  const divWidth = div.clientWidth;
-  const divHeight = div.clientHeight;
-  let currentMargin = 0;
-  let numberDivs = 0;
-  let i = 0
-  
-  if(windowWidth >= 650) {
-    while(currentMargin <= 40) {
-      let numberDivs = Math.floor(bookListWidth / divWidth) - i;
-      let commonWidth = divWidth * numberDivs;
-      let commonMargin = bookListWidth - commonWidth;
-      currentMargin = Math.floor(commonMargin / (numberDivs + 1));
-      i++;
-    }
-  } else {
-    let numberDivs = 1;
-    let commonWidth = divWidth * numberDivs;
-    let commonMargin = bookListWidth - commonWidth;
-    currentMargin = Math.floor(commonMargin / (numberDivs + 1));
-  }
-  return currentMargin;
-} */
 
 function countDivMargins(div) {
   div.style.marginRight = '0px';
@@ -649,3 +594,7 @@ window.onload = () => {
   addBookToDisplay(myLibrary);
   addTableValues()
 }
+
+bookList.addEventListener('touchmove', function (){
+  var scrollTop = window.pageYOffset;
+}, false);
