@@ -6,10 +6,11 @@
 /* html {
   -ms-overflow-style: none; 
   scrollbar-width: none; 
-} */
+}
+ */
 #bookList {
-  /*   -ms-overflow-style: none;  
-  scrollbar-width: none;*/
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   background: rgba(234, 0, 255, 0.336);
 }
 body {
@@ -76,10 +77,10 @@ header {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  /*   overflow: scroll; */
+  overflow: scroll;
   /* overflow: auto; */
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  /*   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; */
 }
 #bookList .showMenu {
   width: 50%;
