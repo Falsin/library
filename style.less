@@ -45,13 +45,22 @@ body {
   .size(100%, 100%);
 }
 
-#container {
+/* #container {
   position: fixed;
   z-index: 1;
   .size(100%, 100%);
   display: grid;
   grid-template-columns: 1.5fr 0.5fr;
   grid-template-rows: 0.2fr 1.8fr;
+} */
+
+#container {
+  position: fixed;
+  z-index: 1;
+  .size(100%, 100%);
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  grid-template-rows: 0.2fr auto;
 }
 
 header {
@@ -84,10 +93,10 @@ header {
   grid-row-end: -1;
   grid-column-start: 1;
   grid-column-end: 2;
-  .size(100%, 100%);
+  .size(100%, auto);
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+/*   overflow: scroll; */
   /* overflow: auto; */
 /*   overflow-y: scroll;
   -webkit-overflow-scrolling: touch; */
