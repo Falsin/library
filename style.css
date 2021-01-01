@@ -215,6 +215,7 @@ table .value {
 .buttons input {
   width: 50%;
   height: auto;
+  border: solid red 1px;
 }
 form {
   margin: auto;
