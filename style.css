@@ -151,6 +151,11 @@ header h1 {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  transition: 1.2s;
+  position: absolute;
+}
+#information.moveInformation {
+  right: 0;
 }
 #information a {
   cursor: pointer;
@@ -497,7 +502,7 @@ input:checked + .slider:before {
     grid-template-columns: 1.2fr 0.8fr;
   }
   #information {
-    display: none;
+    right: -100%;
     z-index: 3;
   }
   #bookList {
@@ -511,9 +516,12 @@ input:checked + .slider:before {
   }
 }
 @media screen and (max-width: 600px) {
+  #container {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
   .bookCard,
   #information {
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
   .bookCard,
   #newBook {
@@ -526,5 +534,10 @@ input:checked + .slider:before {
   #newBook {
     width: 55vmin;
     height: 66vmin;
+  }
+}
+@media screen and (max-width: 450px) {
+  #container {
+    grid-template-columns: 1fr 1fr;
   }
 }

@@ -121,8 +121,7 @@ btnEdit.addEventListener('mousedown', () => {
 })
 
 nav.addEventListener('mousedown', () => {
-  let styleDisplay = infoBlock.style.display;
-  infoBlock.style.display = (styleDisplay == 'flex') ? 'none' : 'flex';
+  infoBlock.classList.toggle('moveInformation')
 })
 
 inputsArray.forEach((item, id) => checkChanges(item, id, inputsArray));
