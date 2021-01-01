@@ -509,6 +509,10 @@ input:checked + .slider:before {
 }
 @media screen and (max-width: 600px) {
   .bookCard,
+  #information {
+    font-size: 1.2em;
+  }
+  .bookCard,
   #newBook {
     width: 45vmin;
     height: 55vmin;
