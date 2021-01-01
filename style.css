@@ -140,13 +140,20 @@ header h1 {
 .blockEditBook > div {
   border-radius: 3vmin;
 }
-.buttons input:first-child {
+.buttons input:first-child,
+.buttons input:last-child {
+  border: none;
   border-radius: 0;
+  color: white;
+  outline: none;
+}
+.buttons input:first-child {
   border-bottom-left-radius: 3vmin;
+  background: hsl(151, 96%, 22%);
 }
 .buttons input:last-child {
-  border-radius: 0;
   border-bottom-right-radius: 3vmin;
+  background: red;
 }
 #information {
   padding: 1vmin;
