@@ -1,3 +1,8 @@
+//сделать адаптивные шрифты
+//уменьшить высоту хедера
+//поработать над цветовой гаммой
+
+
 const field = document.getElementById('field');
 const nav = document.querySelector('.nav');
 
