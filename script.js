@@ -390,7 +390,7 @@ function setInfoArea(elem) {
   let bookTitle = addElement('div', bookInfo, 'bookTitle', 'auto', 'auto');
   bookTitle.textContent = `${myLibrary[elemId].title}`;
 
-  let bookAuthor = addElement('div', bookInfo, 'bookAuthor', 'auto', 'auto');
+  let bookAuthor = addElement('div', bookInfo, 'bookAuthor', '80%', 'auto');
   bookAuthor.textContent = `${myLibrary[elemId].author}`;
 }
 
@@ -547,7 +547,7 @@ function saveChanges() {
   localStorage.clear();
   for(let i = 0; i < myLibrary.length; i++) {
     localStorage.setItem(`${[i]}.title`, `${myLibrary[i].title}`)
-    localStorage.setItem(`${[i]}.author`, `${myLibrary[i].title}`)
+    localStorage.setItem(`${[i]}.author`, `${myLibrary[i].author}`)
     localStorage.setItem(`${[i]}.totalPages`, `${myLibrary[i].totalPages}`)
     localStorage.setItem(`${[i]}.completedPages`, `${myLibrary[i].completedPages}`)
     localStorage.setItem(`${[i]}.isRead`, `${myLibrary[i].isRead}`)

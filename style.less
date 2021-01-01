@@ -10,7 +10,7 @@
 }
 
 #bookList {
-  background: rgba(234, 0, 255, 0.336);
+  background: hsla(0, 0%, 7%, 0.965);
   overflow:scroll;
   -webkit-overflow-scrolling: touch;
 }
@@ -21,16 +21,6 @@ body {
   position: relative;
   font-family: Helvetica, sans-serif;
   font-weight: 500;
-}
-
-.heading {
-  .size(100%, 20%);
-  background: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.5em;
 }
 
 #field {
@@ -153,7 +143,9 @@ header h1 {
 }
 
 .buttons input:first-child,
-.buttons input:last-child {
+.buttons input:last-child,
+.editRemove .edit,
+.editRemove .remove{
   border: none;
   border-radius: 0;
   color: white;
@@ -167,8 +159,19 @@ header h1 {
 
 .buttons input:last-child {
   border-bottom-right-radius: 3vmin;
-  background: red;
+  background: hsla(0, 100%, 50%, 0.822);
 }
+
+.editRemove .edit {
+  background: hsl(151, 96%, 22%);
+  border-top-left-radius: 3vmin;
+}
+
+.editRemove .remove {
+  background: hsla(0, 100%, 50%, 0.822);
+  border-top-right-radius: 3vmin;
+}
+
 
 #information {
   padding: 1vmin;
@@ -347,10 +350,15 @@ input:checked + .slider:before {
 }
 
 .bookCard {
+  border-radius: 3vmin;
   .size(40vmin, 50vmin);
   display: flex;
   flex-direction: column;
   transition: 1.2s;
+}
+
+.bookCard:hover {
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 
 .edit {
@@ -371,26 +379,22 @@ input:checked + .slider:before {
 }
 
 .bookInfo {
-  background: blue;
+  background: hsl(0, 0%, 20%);
   display: flex;
   flex-direction: column;
   position: relative;
+  color: white;
 }
 
 .bookTitle {
-  background: orange;
   margin: auto;
 }
 
 .bookAuthor {
-  background: rgb(94, 255, 0);
+  text-align: right;
   position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-.edit, .remove {
-  background: brown;
+  bottom: 5%;
+  right: 5%;
 }
 
 .countingPages {
@@ -415,7 +419,7 @@ input:checked + .slider:before {
 }
 
 .decrementPages {
-  background: red;
+  background: hsla(0, 100%, 50%, 0.822);
 }
 
 .completeButton {
@@ -424,7 +428,7 @@ input:checked + .slider:before {
 
 .progressDisplay {
   display: flex;
-  background: gray;
+  background: hsl(0, 0%, 20%);
 }
 
 .progressDisplay * {
@@ -446,23 +450,46 @@ input:checked + .slider:before {
   display: none;
   position: absolute;
   .size(100%, 100%);
-  background: blue;
-  opacity: 0.8;
+}
+
+.deleteDate * {
+  color: white;
 }
 
 .deleteDate > div {
   opacity: 0.9;
   .size(70vmin, 70vmin);
-  background: rgba(255, 0, 0, 0.76);
+  background: hsl(0, 0%, 25%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 3vmin;
+}
+
+.heading {
+  .size(100%, 20%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.choice {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-grow: 2;
 }
 
 #no, #yes {
   .size(20vmin, 20vmin);
-  border: solid red 1px;
+  border: solid hsla(0, 100%, 50%, 0.822) 1px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border-radius: 3vmin;
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 
 .auth {
@@ -544,11 +571,11 @@ input:checked + .slider:before {
   } 
 
   &.invalidValue:after {
-    background: red;
+    background: hsla(0, 100%, 50%, 0.822);
   } 
 
   &.invalidValue:before {
-    color: red !important;
+    color: hsla(0, 100%, 50%, 0.822) !important;
   }
 
   &.invalidValue:before {

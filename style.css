@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 #bookList {
-  background: rgba(234, 0, 255, 0.336);
+  background: hsla(0, 0%, 7%, 0.965);
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
@@ -15,16 +15,6 @@ body {
   position: relative;
   font-family: Helvetica, sans-serif;
   font-weight: 500;
-}
-.heading {
-  width: 100%;
-  height: 20%;
-  background: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.5em;
 }
 #field {
   display: flex;
@@ -141,7 +131,9 @@ header h1 {
   border-radius: 3vmin;
 }
 .buttons input:first-child,
-.buttons input:last-child {
+.buttons input:last-child,
+.editRemove .edit,
+.editRemove .remove {
   border: none;
   border-radius: 0;
   color: white;
@@ -153,7 +145,15 @@ header h1 {
 }
 .buttons input:last-child {
   border-bottom-right-radius: 3vmin;
-  background: red;
+  background: hsla(0, 100%, 50%, 0.822);
+}
+.editRemove .edit {
+  background: hsl(151, 96%, 22%);
+  border-top-left-radius: 3vmin;
+}
+.editRemove .remove {
+  background: hsla(0, 100%, 50%, 0.822);
+  border-top-right-radius: 3vmin;
 }
 #information {
   padding: 1vmin;
@@ -320,11 +320,15 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 .bookCard {
+  border-radius: 3vmin;
   width: 40vmin;
   height: 50vmin;
   display: flex;
   flex-direction: column;
   transition: 1.2s;
+}
+.bookCard:hover {
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 .edit {
   border-top-left-radius: 3vmin;
@@ -340,24 +344,20 @@ input:checked + .slider:before {
   display: none;
 }
 .bookInfo {
-  background: blue;
+  background: hsl(0, 0%, 20%);
   display: flex;
   flex-direction: column;
   position: relative;
+  color: white;
 }
 .bookTitle {
-  background: orange;
   margin: auto;
 }
 .bookAuthor {
-  background: #5eff00;
+  text-align: right;
   position: absolute;
-  bottom: 0;
-  right: 0;
-}
-.edit,
-.remove {
-  background: brown;
+  bottom: 5%;
+  right: 5%;
 }
 .countingPages {
   cursor: pointer;
@@ -377,14 +377,14 @@ input:checked + .slider:before {
   background: green;
 }
 .decrementPages {
-  background: red;
+  background: hsla(0, 100%, 50%, 0.822);
 }
 .completeButton {
   background: hsl(240, 100%, 20%);
 }
 .progressDisplay {
   display: flex;
-  background: gray;
+  background: hsl(0, 0%, 20%);
 }
 .progressDisplay * {
   display: flex;
@@ -403,24 +403,45 @@ input:checked + .slider:before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: blue;
-  opacity: 0.8;
+}
+.deleteDate * {
+  color: white;
 }
 .deleteDate > div {
   opacity: 0.9;
   width: 70vmin;
   height: 70vmin;
-  background: rgba(255, 0, 0, 0.76);
+  background: hsl(0, 0%, 25%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 3vmin;
+}
+.heading {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+.choice {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-grow: 2;
 }
 #no,
 #yes {
   width: 20vmin;
   height: 20vmin;
-  border: solid red 1px;
+  border: solid hsla(0, 100%, 50%, 0.822) 1px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border-radius: 3vmin;
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 .auth {
   width: 100%;
@@ -495,10 +516,10 @@ input:checked + .slider:before {
   background: hsl(88, 100%, 25%);
 }
 .labels.invalidValue:after {
-  background: red;
+  background: hsla(0, 100%, 50%, 0.822);
 }
 .labels.invalidValue:before {
-  color: red !important;
+  color: hsla(0, 100%, 50%, 0.822) !important;
 }
 .labels.invalidValue:before {
   content: "Title cannot be empty and length must be less than 40";
