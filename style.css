@@ -211,6 +211,7 @@ table .value {
   display: flex;
   width: 100%;
   height: 12%;
+  border: solid green 1px;
 }
 .buttons input {
   width: 50%;
