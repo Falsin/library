@@ -88,26 +88,23 @@ header h1 {
 .showMenu {
   border-radius: 3vmin;
   box-shadow: 0 0 10px hsl(151, 96%, 22%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #newBook .showMenu:hover,
 #newBook .activeMenu {
   width: 100%;
   height: 100%;
 }
-.showMenu span {
-  color: white;
-  font-weight: 500;
-  font-size: 10vmin;
+.showMenu img {
   transition: 1.2s;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 60%;
+  height: auto;
 }
-#newBook .showMenu:hover span,
-#newBook .activeMenu span {
-  font-size: 30vmin;
-  transform: translate(-50%, -50%) rotate(90deg);
+#newBook .showMenu:hover img,
+#newBook .activeMenu img {
+  transform: rotate(90deg);
 }
 .blockNewBook > div,
 .blockEditBook > div {
@@ -588,13 +585,6 @@ input:checked + .slider:before {
   }
   .nav {
     display: block;
-  }
-  .showMenu span {
-    font-size: 15vmin;
-  }
-  #newBook .showMenu:hover span,
-  #newBook .activeMenu span {
-    font-size: 35vmin;
   }
 }
 @media screen and (max-width: 600px) {
