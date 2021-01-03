@@ -172,7 +172,6 @@ header h1 {
   border-top-right-radius: 3vmin;
 }
 
-
 #information {
   padding: 1vmin;
   padding-left: 0.5vmin;
@@ -201,8 +200,56 @@ header h1 {
   text-decoration: none;
 }
 
-table {
+table,
+#settingStorage {
   .size(80%, auto);
+}
+
+#settingStorage {
+  display: flex;
+  flex-direction: column;
+}
+
+#settingStorage h2 {
+  text-align: center;
+}
+
+#settingStorage div {
+  display: flex;
+  justify-content: center;
+}
+
+table,
+#settingStorage div,
+#aboutAuthor {
+  padding-top: 2vmin;
+  padding-bottom: 2vmin;
+  border-top: solid hsl(0, 0%, 50%) 1px;
+  border-bottom: solid hsl(0, 0%, 50%) 1px;
+}
+
+caption,
+#settingStorage h2 {
+  padding-top: 1vmin;
+  padding-bottom: 1vmin;
+  border-top: solid hsl(0, 0%, 50%) 1px;
+}
+
+#settingStorage input {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  cursor: pointer;
+}
+
+/* #settingStorage input:hover {
+  box-shadow: 0 0 10px hsl(151, 96%, 22%);
+}
+ */
+#aboutAuthor {
+  padding-top: 1vmin;
+  padding-bottom: 1vmin; 
 }
 
 table .key {
@@ -483,7 +530,7 @@ input:checked + .slider:before {
 
 #no, #yes {
   .size(20vmin, 20vmin);
-  border: solid hsla(0, 100%, 50%, 0.822) 1px;
+  border: solid hsl(0, 0%, 50%) 1px;
   display: flex;
   justify-content: center;
   align-items: center;
