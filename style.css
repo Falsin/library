@@ -225,6 +225,7 @@ caption,
   border-radius: 1.5vmin;
   border: none;
   outline: none;
+  background: white;
 }
 #settingStorage input:hover {
   box-shadow: 0 0 10px hsl(151, 96%, 22%);
