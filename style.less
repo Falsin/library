@@ -97,6 +97,9 @@ header h1 {
 .showMenu {
   border-radius: 3vmin;
   box-shadow: 0 0 10px hsl(151, 96%, 22%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #newBook .showMenu:hover,
@@ -104,47 +107,17 @@ header h1 {
   .size(100%, 100%)
 }
 
-#newBook .showMenu:hover::after,
-#newBook .activeMenu::after  {
-  .size(16vmin, 2vmin)
+.showMenu span {
+  color: white;
+  font-weight: 500;
+  font-size: 10vmin;
+  transition: 1.2s;;
 }
 
-.showMenu:before,
-.activeMenu:before  {
-  position: absolute;
-  transform-origin: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  content: '';
-  .size(1.4vmin, 8.5vmin);
-  background: hsl(151, 96%, 22%);
-  transition: 1.2s;
-  transform-origin: center;
-}
-
-#newBook .showMenu:hover:before,
-#newBook .activeMenu:before  {
-  .size(2vmin, 16vmin);
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-#newBook .showMenu:hover:after,
-#newBook .activeMenu:after  {
-  .size(16vmin, 2vmin);
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.showMenu:after {
-  position: absolute;
-  transform-origin: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  content: '';
-  .size(8.5vmin, 1.4vmin);
-  background: hsl(151, 96%, 22%);
-  transition: 1.2s;
+#newBook .showMenu:hover span,
+#newBook .activeMenu span {
+  font-size: 30vmin;
+  transform: rotate(90deg);
 }
 
 .blockNewBook > div, 
