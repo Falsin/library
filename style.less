@@ -11,7 +11,7 @@
 
 #bookList {
   background: hsla(0, 0%, 7%, 0.965);
-  overflow: scroll;
+  overflow: auto;
   -ms-overflow-style: none;  	
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -99,15 +99,18 @@ header h1 {
   box-shadow: 0 0 10px hsl(151, 96%, 22%);
 }
 
-#newBook .showMenu:hover {
+#newBook .showMenu:hover,
+#newBook .activeMenu {
   .size(100%, 100%)
 }
 
-#newBook .showMenu:hover::after  {
+#newBook .showMenu:hover::after,
+#newBook .activeMenu::after  {
   .size(16vmin, 2vmin)
 }
 
-.showMenu:before {
+.showMenu:before,
+.activeMenu:before  {
   position: absolute;
   transform-origin: center;
   top: 50%;
@@ -120,12 +123,14 @@ header h1 {
   transform-origin: center;
 }
 
-#newBook .showMenu:hover:before  {
+#newBook .showMenu:hover:before,
+#newBook .activeMenu:before  {
   .size(2vmin, 16vmin);
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-#newBook .showMenu:hover:after  {
+#newBook .showMenu:hover:after,
+#newBook .activeMenu:after  {
   .size(16vmin, 2vmin);
   transform: translate(-50%, -50%) rotate(90deg);
 }
@@ -405,6 +410,11 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.test {
+  width: 100%;
+  height: 0.5px;
+}
+
 .bookCard {
   border-radius: 3vmin;
   .size(40vmin, 50vmin);
@@ -412,6 +422,11 @@ input:checked + .slider:before {
   flex-direction: column;
   transition: 1.2s;
 }
+
+.bookCard, .bookCard * {
+  cursor: pointer;
+}
+
 
 .bookCard:hover {
   box-shadow: 0 0 10px hsl(151, 96%, 22%);

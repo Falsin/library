@@ -1,6 +1,3 @@
-//поработать над цветовой гаммой
-
-
 const field = document.getElementById('field');
 const nav = document.querySelector('.nav');
 
@@ -43,7 +40,10 @@ const editInputsArray = blockEditBook.querySelectorAll(`[type='text']`);
 
 myLibrary = [];
 
-menu.addEventListener('mousedown', () => popUp(blockNewBook));
+menu.addEventListener('mousedown', () => {
+  menu.classList.add('activeMenu');
+  popUp(blockNewBook);
+});
 
 btnAdd.addEventListener('mousedown', () => {
   let isValid = true;
@@ -231,6 +231,7 @@ function setBookStatus(total, completed) {
 btnsCancel.forEach(item => {
   item.addEventListener('mousedown', (e) => {
     e.target.parentNode.parentNode.parentNode.classList.remove('active');
+    menu.classList.remove('activeMenu');
   })
 })
 
